@@ -1,0 +1,5 @@
+Flask
+mistune==2.0.0rc1
+Frozen-Flask
+diskcache
+Pygments==2.10.0
