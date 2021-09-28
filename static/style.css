@@ -1,0 +1,48 @@
+/* BEGIN Pygments stuff */
+
+/* make sure there are no borders */
+table.highlighttable { border-collapse:collapse; }
+table.highlighttable td, table.highlighttable tr { padding: 0; margin: 0; border: 0; }
+
+/* undo Pygments stuff */
+.highlighttable td.linenos pre { padding-right: 0; padding-left: 0; }
+
+/* make it as wide as the container */
+/* we skip .code-container because we're doing differrent stuff for it below */
+table.highlighttable:not(.code-container) { width: 100%; }
+table.highlighttable td.linenos { width: .1%; }
+
+/* adjust margins to make it look nice */
+table.highlighttable td.linenos code {
+    padding-left: .8rem;
+    padding-right: .0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+table.highlighttable td.code code {
+    padding-left: .7rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* the margin-bottom of the element above does not collapse
+ * with the margin-top of the pre, because of the display property
+ * of the table and the table-specific elements within it.
+ * it's easiest to just remove the additional margin-top of the pre,
+ * since we rely on the the margin of the element above anyway. */
+.code-container:not(:first-child) pre { margin-top: 0; }
+
+/* same kind of thing, but for hr */
+.code-container + hr { margin-top: 0; }
+
+
+/* HACK: should not hardcode the colors */
+
+/* line numbers have the same color as the data-lang label, Spectre's .text-gray */
+table.highlighttable td.linenos code { color: #bcc3ce; }
+
+/* note: should be relatively kept in sync with the Pygments theme background */
+.highlight { background: inherit; }
+
+
+/* END Pygments stuff */

@@ -5,6 +5,19 @@ import mistune
 from collections import namedtuple
 from typing import Tuple, List
 from flask import Flask, render_template
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import html
+
+
+class HighlightRenderer(mistune.HTMLRenderer):
+    def block_code(self, code, lang=None):
+        if lang:
+            lexer = get_lexer_by_name(lang, stripall=True)
+            formatter = html.HtmlFormatter(style='solarized-light')
+            return highlight(code, lexer, formatter)
+        return '<pre><code>' + mistune.escape(code) + '</code></pre>'
+
 
 GITHUB_REPO_CONTENT_API = 'https://api.github.com/repos/{repo}/contents/{path}'
 ParsedPost = namedtuple('ParsedPost', ['title', 'date', 'tags', 'category', 'content'])
@@ -34,7 +47,7 @@ app = Flask(__name__)
 def hello_world(path_title):
     md = get_github_content('KevinXuxuxu/blog', 'posts/{}.md'.format(path_title))
     parsed_post = parse_post_metadata(md)
-    md_factory = mistune.create_markdown()
+    md_factory = mistune.create_markdown(renderer=HighlightRenderer())
     html = md_factory(parsed_post.content)
     return render_template(
         'layout.html', title=parsed_post.title, sub_title=parsed_post.date, content=html)
