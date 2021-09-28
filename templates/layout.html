@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    </head>
+    <body>
+        <div class="main container grid-lg">
+            <header>
+                <nav>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">&nbsp;
+                    </ul>
+                </nav>
+                
+                <h1 class="heading-index">{{ title }}</h1>
+
+                <p class="text-gray"><small>
+                    {{ sub_title | default("") }}
+                </small></p>
+            </header>
+                
+            <main class="content columns">
+                <div class="column col-sm-12 col-md-10 col-8">
+                    {% autoescape false %}
+                    {{ content }}
+                    {% endautoescape %}
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
