@@ -3,20 +3,31 @@ import requests
 import mistune
 
 from collections import namedtuple
-from typing import Tuple, List
 from flask import Flask, render_template
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
 
+def decorated_highlight(code: str, lang: str) -> str:
+    lexer = get_lexer_by_name(lang, stripall=True)
+    formatter = html.HtmlFormatter(style='solarized-light')
+    pygments_highlight = highlight(code, lexer, formatter)
+    # get everything between <pre>
+    i, j = pygments_highlight.find('<pre>') + len('<pre>'), pygments_highlight.find('</pre>')
+    code = pygments_highlight[i:j]
+    # add <code> element to correct place
+    i = len('<span></span>')
+    code = code[:i] + '<code>' + code[i:] + '</code>'
+    return f'''<div class="highlight">
+    <pre class="code" data-lang="{lang}">{code}</pre>
+</div>'''
+
 
 class HighlightRenderer(mistune.HTMLRenderer):
-    def block_code(self, code, lang=None):
+    def block_code(self, code, lang=None) -> str:
         if lang:
-            lexer = get_lexer_by_name(lang, stripall=True)
-            formatter = html.HtmlFormatter(style='solarized-light')
-            return highlight(code, lexer, formatter)
-        return '<pre><code>' + mistune.escape(code) + '</code></pre>'
+            return decorated_highlight(code, lang)
+        return f'<pre><code>' + mistune.escape(code) + '</code></pre>'
 
 
 GITHUB_REPO_CONTENT_API = 'https://api.github.com/repos/{repo}/contents/{path}'

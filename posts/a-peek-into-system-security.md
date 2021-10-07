@@ -34,7 +34,7 @@ def parse_post_metadata(md: str) -> ParsedPost:
 ```
 
 To my defense, I do know the correct way to solve this thing, which is to write a custom templating logic into dockerfile (which is a good opportunity to pick up some shell magic):
-```bash
+```shell
 ENTRYPOINT \
     sed -i "s=WEBHOOK_URL=${WEBHOOK_URL}=g" \
         /etc/alertmanager/alertmanager.yml && \
