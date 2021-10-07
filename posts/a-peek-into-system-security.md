@@ -20,19 +20,6 @@ So I started writing Dockerfiles, which should be as easy as `FROM prom/promethe
 
 The problem was with the config for the alert manager (I skipped the failure of trying to make Gmail SMTP server work, so anyways I ended up with slack for notification). For some [not-so-obvious reason](https://github.com/prometheus/alertmanager/issues/2207), Prometheus decides not to support templating for `slack_api_url`, aka. it will not automatically render env variables into config file (which is actually [a standard practice](https://12factor.net/config) for micro services to get config or credentials). After a long day of struggling with all the tech details, I took the liberty to hard-code my Slack webhook url into the config file, and got busted by 2 companies (I'm suspecting that Slack actually hired GitGuardian but whatever).
 
-```python
-def parse_post_metadata(md: str) -> ParsedPost:
-    _, metadata_str, content = md.split('---\n')
-    metadata = {'content': content}
-    for line in metadata_str.strip().split('\n'):
-        key, value = line.split(': ')
-        if key == 'tags':
-            metadata['tags'] = eval(value.strip())
-        else:
-            metadata[key] = value.strip()
-    return ParsedPost(**metadata)
-```
-
 To my defense, I do know the correct way to solve this thing, which is to write a custom templating logic into dockerfile (which is a good opportunity to pick up some shell magic):
 ```shell
 ENTRYPOINT \
