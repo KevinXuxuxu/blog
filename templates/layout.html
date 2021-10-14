@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
         <link rel="stylesheet" href="/static/pygments_style.css">
+        <!-- <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"> -->
     </head>
     <body>
         <div class="main container grid-lg">
@@ -12,7 +13,9 @@
                         <li class="breadcrumb-item">&nbsp;
                     </ul>
                 </nav>
-                
+                {% if request.path != '/post' %}
+                    <a href="/post">back</a>
+                {% endif %}
                 <h1 class="heading-index">{{ title }}</h1>
 
                 <p class="text-gray"><small>

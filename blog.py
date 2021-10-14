@@ -3,7 +3,7 @@ import requests
 import mistune
 
 from collections import namedtuple
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
@@ -69,16 +69,16 @@ def parse_post_metadata(md: str) -> ParsedPost:
 
 app = Flask(__name__)
 
+@app.route("/")
+def index():
+    return redirect('/post')
 
 @app.route("/post")
 def posts():
     post_list = get_all_posts_from_github('KevinXuxuxu/blog')
-    print(post_list)
     md_factory = mistune.create_markdown(renderer=HighlightRenderer())
     md = '\n'.join(['Here is a list of all my blogs'] + [gen_post_md(pt) for pt in post_list])
-    print(md)
     html = md_factory(md)
-    print(html)
     return render_template('layout.html', title='fzxu\'s Blog', content=html)
 
 @app.route("/post/<path_title>")
