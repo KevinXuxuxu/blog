@@ -1,9 +1,12 @@
+import os
 import base64
 import requests
 import mistune
 
 from collections import namedtuple
 from flask import Flask, render_template, redirect
+from flask.helpers import url_for
+from flask_frozen import Freezer
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
@@ -42,6 +45,11 @@ def get_github_content(repo: str, path: str) -> str:
     return base64.b64decode(encoded_content).decode()
 
 
+def get_local_content(path_title: str) -> str:
+    with open('posts/{}.md'.format(path_title), 'r') as f:
+        return f.read()
+
+
 def get_all_posts_from_github(repo: str) -> List[str]:
     resp = requests.get(GITHUB_REPO_TREE_API.format(repo=repo))
     post_paths = [
@@ -51,8 +59,12 @@ def get_all_posts_from_github(repo: str) -> List[str]:
     return [path[len('posts/'):-len('.md')] for path in post_paths]
 
 
+def get_all_posts_from_local() -> List[str]:
+    return [file_name[:-3] for file_name in os.listdir('posts')]
+
+
 def gen_post_md(path_title: str) -> str:
-    return '- [{pt}](/post/{pt})'.format(pt=path_title)
+    return '- [{}]({})'.format(path_title, url_for('post', path_title=path_title))
 
 
 def parse_post_metadata(md: str) -> ParsedPost:
@@ -71,11 +83,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return redirect('/post')
+    return redirect('/posts')
 
-@app.route("/post")
+@app.route("/posts")
 def posts():
-    post_list = get_all_posts_from_github('KevinXuxuxu/blog')
+    # post_list = get_all_posts_from_github('KevinXuxuxu/blog')
+    post_list = get_all_posts_from_local()
     md_factory = mistune.create_markdown(renderer=HighlightRenderer())
     md = '\n'.join(['Here is a list of all my blogs'] + [gen_post_md(pt) for pt in post_list])
     html = md_factory(md)
@@ -83,9 +96,21 @@ def posts():
 
 @app.route("/post/<path_title>")
 def post(path_title):
-    md = get_github_content('KevinXuxuxu/blog', 'posts/{}.md'.format(path_title))
+    # md = get_github_content('KevinXuxuxu/blog', 'posts/{}.md'.format(path_title))
+    md = get_local_content(path_title)
     parsed_post = parse_post_metadata(md)
     md_factory = mistune.create_markdown(renderer=HighlightRenderer())
     html = md_factory(parsed_post.content)
     return render_template(
         'layout.html', title=parsed_post.title, sub_title=parsed_post.date, content=html)
+
+
+freezer = Freezer(app)
+
+@freezer.register_generator
+def post():
+    for title in get_all_posts_from_local():
+        yield {'path_title': title}
+
+if __name__ == '__main__':
+    freezer.freeze()
