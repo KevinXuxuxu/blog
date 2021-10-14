@@ -3,7 +3,7 @@ pre {
     line-height: 125%;
     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 }
-code {
+pre > code {
     padding-left: 1em;
     padding-right: 1em;
 }
