@@ -29,6 +29,16 @@
                     {% autoescape false %}
                     {{ content }}
                     {% endautoescape %}
+
+                    {% if request.path != '/' %}
+                        <script src="https://utteranc.es/client.js"
+                                repo="KevinXuxuxu/KevinXuxuxu.github.io"
+                                issue-term="pathname"
+                                theme="github-light"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                    {% endif %}
                 </div>
             </main>
         </div>
