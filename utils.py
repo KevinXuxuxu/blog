@@ -8,7 +8,8 @@ from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
 from typing import List
 
-ParsedPost = namedtuple('ParsedPost', ['title', 'date', 'tags', 'category', 'content'])
+ParsedPost = namedtuple('ParsedPost', ['title', 'path_title', 'date', 'tags', 'category', 'content'])
+_all_post_metadata_cache = None
 
 class HighlightRenderer(mistune.HTMLRenderer):
 
@@ -41,17 +42,28 @@ def get_local_content(path_title: str) -> str:
         return f.read()
 
 
-def get_all_posts_from_local() -> List[str]:
+def get_all_post_titles() -> List[str]:
     return [file_name[:-3] for file_name in os.listdir('posts')]
+
+
+def get_all_posts_with_metadata() -> List[ParsedPost]:
+    global _all_post_metadata_cache
+    if _all_post_metadata_cache is None:
+        _all_post_metadata_cache = []
+        for path in os.listdir('posts'):
+            with open('posts/' + path, 'r') as f:
+                _all_post_metadata_cache.append(
+                    parse_post_metadata(path[:-3], f.read()))
+    return _all_post_metadata_cache
 
 
 def gen_post_md(path_title: str) -> str:
     return '- [{}]({})'.format(path_title, url_for('post', path_title=path_title))
 
 
-def parse_post_metadata(md: str) -> ParsedPost:
+def parse_post_metadata(path_title: str, md: str) -> ParsedPost:
     _, metadata_str, content = md.split('---\n')
-    metadata = {'content': content}
+    metadata = {'content': content, 'path_title': path_title}
     for line in metadata_str.strip().split('\n'):
         key, value = line.split(': ')
         if key == 'tags':

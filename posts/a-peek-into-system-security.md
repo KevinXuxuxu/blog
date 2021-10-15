@@ -2,7 +2,7 @@
 title: A Peek into System Security
 date: 2021-09-22 22:27:45
 tags: ["index", "infra", "AWS", "Monitoring", "Security"]
-category: "tech"
+category: tech
 ---
 
 This morning I got reached out by 2 tech companies: [GitGuardian](https://www.gitguardian.com/) and Slack, about a same issue related to the repository I just created: [prometheus-ecs](https://github.com/KevinXuxuxu/prometheus-ecs), which is a flattering experience. Unfortunately it's not that my repo is so good that they want to initiate business collaboration or anything, it's just that they found out one of my Slack webhook url is exposed in my (apparently public) repository, and were kind enough to warn me of it. Slack even went as far as directly revoking the exposed URL and issuing a new one.
