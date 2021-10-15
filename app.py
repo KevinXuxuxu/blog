@@ -23,7 +23,6 @@ def posts():
 @app.route("/category/<category>/")
 def category(category):
     all_posts = get_all_posts_with_metadata()
-    print(all_posts)
     filtered_post_path_titles = [p.path_title for p in all_posts if p.category == category]
     md = '\n'.join(
         [f'Here is a list of all blogs of category `{category}`'] +
