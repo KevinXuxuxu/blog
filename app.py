@@ -25,5 +25,4 @@ def post(path_title):
     parsed_post = parse_post_metadata(path_title, md)
     md_factory = get_md_factory()
     html = md_factory(parsed_post.content)
-    return render_template(
-        'post.html', title=parsed_post.title, sub_title=parsed_post.date, content=html)
+    return render_template('post.html', post=parsed_post, rendered_content=html)
