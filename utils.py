@@ -42,10 +42,6 @@ def get_local_content(path_title: str) -> str:
         return f.read()
 
 
-def get_all_post_titles() -> List[str]:
-    return [file_name[:-3] for file_name in os.listdir('posts')]
-
-
 def get_all_posts_with_metadata() -> List[ParsedPost]:
     global _all_post_metadata_cache
     if _all_post_metadata_cache is None:
@@ -54,7 +50,7 @@ def get_all_posts_with_metadata() -> List[ParsedPost]:
             with open('posts/' + path, 'r') as f:
                 _all_post_metadata_cache.append(
                     parse_post_metadata(path[:-3], f.read()))
-    return _all_post_metadata_cache
+    return sorted(_all_post_metadata_cache, key=lambda p: p.date, reverse=True)
 
 
 def gen_post_md(path_title: str) -> str:

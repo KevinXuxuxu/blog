@@ -1,14 +1,14 @@
 from flask_frozen import Freezer
 
 from app import app
-from utils import get_all_post_titles, get_all_posts_with_metadata
+from utils import get_all_posts_with_metadata
 
 freezer = Freezer(app)
 
 @freezer.register_generator
 def post():
-    for title in get_all_post_titles():
-        yield {'path_title': title}
+    for post in get_all_posts_with_metadata():
+        yield {'path_title': post.path_title}
 
 @freezer.register_generator
 def category():
