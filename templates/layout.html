@@ -14,31 +14,14 @@
                         <li class="breadcrumb-item">&nbsp;
                     </ul>
                 </nav>
-                {% if request.path != '/' %}
-                    <a href="/">back</a>
-                {% endif %}
-                <h1 class="heading-index">{{ title }}</h1>
-
-                <p class="text-gray"><small>
-                    {{ sub_title | default("") }}
-                </small></p>
+                {% block head %}
+                {% endblock %}
             </header>
                 
             <main class="content columns">
                 <div class="column col-sm-12 col-md-10 col-8">
-                    {% autoescape false %}
-                    {{ content }}
-                    {% endautoescape %}
-
-                    {% if request.path != '/' %}
-                        <script src="https://utteranc.es/client.js"
-                                repo="KevinXuxuxu/KevinXuxuxu.github.io"
-                                issue-term="pathname"
-                                theme="github-light"
-                                crossorigin="anonymous"
-                                async>
-                        </script>
-                    {% endif %}
+                    {% block body %}
+                    {% endblock %}
                 </div>
             </main>
         </div>

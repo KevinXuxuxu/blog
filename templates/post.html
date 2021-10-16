@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block head %}
+    <a href="/">back</a>
+    <h1 class="heading-index">{{ title }}</h1>
+
+    <p class="text-gray"><small>
+        {{ sub_title | default("") }}
+    </small></p>
+{% endblock %}
+{% block body %}
+    {% autoescape false %}
+    {{ content }}
+    {% endautoescape %}
+
+    <script src="https://utteranc.es/client.js"
+            repo="KevinXuxuxu/KevinXuxuxu.github.io"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+    </script>
+{% endblock %}
