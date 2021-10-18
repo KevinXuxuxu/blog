@@ -5,6 +5,8 @@
 
         <link rel="stylesheet" href="/static/spectre.min.css">
         <link rel="stylesheet" href="/static/pygments_style.css">
+        {% block extraheader %}
+        {% endblock %}
     </head>
     <body>
         <div class="main container grid-lg">
@@ -21,6 +23,10 @@
             <main class="content columns">
                 <div class="column col-sm-12 col-md-10 col-8">
                     {% block body %}
+                    {% endblock %}
+                </div>
+                <div class="column col-sm-12 col-md-2 col-4">
+                    {% block sidebar %}
                     {% endblock %}
                 </div>
             </main>
