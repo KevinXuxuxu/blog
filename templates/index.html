@@ -3,20 +3,22 @@
     <h1 class="heading-index">fzxu's blog</h1>
 {% endblock %}
 {% block body %}
-<p>Here is a list of all my blogs</p>
-<ul>
-    {% for p in posts %}
-        <li><a href="/post/{{ p.path_title }}/">{{ p.title }}</a></li>
-    {% endfor %}
-</ul>
+    {% autoescape false %}
+    {{ rendered_content }}
+    {% endautoescape %}
+    <ul>
+        {% for p in posts %}
+            <li><a href="/post/{{ p.path_title }}/">{{ p.title }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 {% block sidebar %}
-<a class="twitter-timeline"
-    data-lang="en"
-    data-width="309"
-    data-theme="light"
-    href="https://twitter.com/fzxu8?ref_src=twsrc%5Etfw">
-    Tweets by fzxu8
-</a>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <a class="twitter-timeline"
+        data-lang="en"
+        data-width="309"
+        data-theme="light"
+        href="https://twitter.com/fzxu8?ref_src=twsrc%5Etfw">
+        Tweets by fzxu8
+    </a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}

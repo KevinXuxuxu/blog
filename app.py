@@ -11,7 +11,10 @@ app.config['FREEZER_DESTINATION_IGNORE'] = ['.git*']
 @app.route("/")
 def index():
     all_posts = get_all_posts_with_metadata()
-    return render_template('index.html', posts=all_posts)
+    index_md = get_local_content('pages', 'index')
+    md_factory = get_md_factory()
+    html = md_factory(index_md)
+    return render_template('index.html', rendered_content=html, posts=all_posts)
 
 @app.route("/category/<category>/")
 def category(category):
@@ -21,7 +24,7 @@ def category(category):
 
 @app.route("/post/<path_title>/")
 def post(path_title):
-    md = get_local_content(path_title)
+    md = get_local_content('posts', path_title)
     parsed_post = parse_post_metadata(path_title, md)
     md_factory = get_md_factory()
     html = md_factory(parsed_post.content)

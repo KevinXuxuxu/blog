@@ -1,5 +1,6 @@
 import os
 import mistune
+import time
 
 from collections import namedtuple
 from flask.helpers import url_for
@@ -10,6 +11,13 @@ from typing import List
 
 ParsedPost = namedtuple('ParsedPost', ['title', 'path_title', 'date', 'tags', 'category', 'content'])
 _all_post_metadata_cache = None
+_post_metadata_template = '''---
+title: {title}
+date: {time}
+tags: []
+category: default
+---
+'''
 
 class HighlightRenderer(mistune.HTMLRenderer):
 
@@ -37,8 +45,8 @@ def get_md_factory() -> 'mistune.markdown.Markdown':
     return mistune.create_markdown(renderer=HighlightRenderer(), plugins=['strikethrough'])
 
 
-def get_local_content(path_title: str) -> str:
-    with open('posts/{}.md'.format(path_title), 'r') as f:
+def get_local_content(folder: str, path_title: str) -> str:
+    with open('{}/{}.md'.format(folder, path_title), 'r') as f:
         return f.read()
 
 
@@ -67,3 +75,12 @@ def parse_post_metadata(path_title: str, md: str) -> ParsedPost:
         else:
             metadata[key] = value.strip()
     return ParsedPost(**metadata)
+
+
+def gen_new_post(title: str):
+    path_title = title.replace(' ', '-')
+    with open(f'posts/{path_title}.md', 'w') as f:
+        f.write(_post_metadata_template.format(
+            title=title,
+            time=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        ))
