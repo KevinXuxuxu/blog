@@ -1,4 +1,7 @@
 {% extends "layout.html" %}
+{% block extraheader %}
+    <title>{{ post.title }}</title>
+{% endblock %}
 {% block head %}
     <a href="/">back</a>
     <h1 class="heading-index">{{ post.title }}</h1>
