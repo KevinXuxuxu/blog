@@ -4,13 +4,13 @@ date: 2021-10-31 22:12:12
 tags: ["Github", "CI", "Docker"]
 category: tech
 ---
-For the past few weeks I've been working on enabling CI for my little side project ([NN](https://github.com/KevinXuxuxu/NN)). I forced myself to add some unit tests as well as e2e (?) tests while I was developing it, and it would be nice to be able to automatically run them thoughout the dev-integration process. This solution needs to satisfy a few requirements:
+For the past few weeks I've been working on enabling CI for one of my side project ([NN](https://github.com/KevinXuxuxu/NN)). I forced myself to add some unit/e2e tests while I was developing it, and it would be nice to automatically run them thoughout the dev-integration process. This solution needs to meet a few requirements:
 - Automatically run all tests when new change is pushed to Github
     - On the main branch so that we know it's not broken
     - On every comment on every PR
 - Blocks PR merge when test fails (obviously)
-- Easy to build (relatively), since the side project itself is not big and I have limited spare time.
-- Doesn't cost too much (relatively), ditto
+- Easy to build (relatively), since the side project itself is not big and I have limited spare time
+- Doesn't cost too much money (relatively), for similar reasons
 
 The general idea of the solution should be pretty straightforward: when a Github event that we care about (e.g. push to a PR) happens, Github sends request that triggers our CI server to do some jobs (e.g. unit testing), and returns the job result to Github.
 
