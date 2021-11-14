@@ -78,3 +78,35 @@ ENTRYPOINT ./config.sh --url https://github.com/KevinXuxuxu/NN --token $TOKEN &&
 This is the Dockerfile I used to make it instantly runnable for better scaling (probably never going to need it), and it's build upon my devops environment to be able to run any build or test easily.
 
 There's also a hack I need to confess. The runner doesn't want you to run it as a sudo user for security reasons, especially for open source projects because random PR is going to trigger runners to run possibly malicious code on your machine. While my devops environment is built with just a root user (which is probably not good), I bypassed the check just to quickly get it working since my runner runs in docker container which is already isolation (sort of). I'll put more research into this, specificly on how code within container could affect the host, how to properly not use root, and how is that safer anyways.
+
+### Followup
+
+OK, they got me again. Basically the Github self-hosted actions runner is as good as supporting automatic update when there is a new version available. When the update happens, old scripts are overwritten by the new version, which makes my "escape non-sudo user check" hack fail.
+
+To do it the proper way, I learned now to create and switch users in Dockerfile, and this is how it looks now:
+```shell
+FROM fzxu/nn
+
+RUN adduser --disabled-password --gecos "" actions-runner
+
+USER actions-runner
+
+RUN cd /home/actions-runner \
+  && curl -o actions-runner-linux-x64-2.284.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.284.0/actions-runner-linux-x64-2.284.0.tar.gz \
+  && tar xzf ./actions-runner-linux-x64-2.284.0.tar.gz
+
+USER root
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN cd /home/actions-runner && ./bin/installdependencies.sh
+
+USER actions-runner
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /home/actions-runner
+
+ENTRYPOINT ./config.sh --url https://github.com/KevinXuxuxu/NN --token $TOKEN && ./run.sh
+```
+Notice in this case I got rid of the custom config and run script hack, and the deployment now support automatic version upgrade.
