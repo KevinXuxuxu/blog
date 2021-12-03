@@ -15,5 +15,5 @@ The author of death and gravity has open-sourced his site generator ([andgravity
 - Tag/~~category~~ support
 - Better layout with header/footer and navigation
 - Flexible theme selection
-- Status post (with twitter? github issue?)
-- About page / Index page
+- Status post (~~with twitter?~~ github issue?)
+- ~~About page / Index page~~
