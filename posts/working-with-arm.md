@@ -1,5 +1,5 @@
 ---
-title: Work with ARM
+title: Working with ARM
 date: 2021-12-24 11:46:00
 tags: ["Docker", "Architecture", "devops"]
 category: tech
