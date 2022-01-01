@@ -7,7 +7,7 @@ from flask.helpers import url_for
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
-from typing import List
+from typing import List, Tuple
 
 ParsedPost = namedtuple('ParsedPost', ['title', 'path_title', 'date', 'tags', 'category', 'content'])
 _all_post_metadata_cache = None
@@ -65,11 +65,16 @@ def gen_post_md(path_title: str) -> str:
     return '- [{}]({})'.format(path_title, url_for('post', path_title=path_title))
 
 
+def parse_attribute(line: str) -> Tuple[str, str]:
+    parts = line.split(': ')
+    return parts[0], ': '.join(parts[1:])
+
+
 def parse_post_metadata(path_title: str, md: str) -> ParsedPost:
     _, metadata_str, content = md.split('---\n')
     metadata = {'content': content, 'path_title': path_title}
     for line in metadata_str.strip().split('\n'):
-        key, value = line.split(': ')
+        key, value = parse_attribute(line)
         if key == 'tags':
             metadata['tags'] = eval(value.strip())
         else:
