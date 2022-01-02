@@ -95,7 +95,6 @@ Given what we have discussed, it would be appropriate to have data ingestion ser
 As we mentioned that the query requirement is less strict in terms of service capacity or latency, there is still some aspect we could talk about:
 
 - Result caching: query such a large dataset is very costly, so it would be nice to have a cache that can store recent query result in memory, and be able to do simple aggregation or increment updates for use cases like dashboards.
-
 - ...What was the other aspect I was thinking about?
 
 ### Afterword
