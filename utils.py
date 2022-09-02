@@ -61,6 +61,14 @@ def get_all_posts_with_metadata() -> List[ParsedPost]:
     return sorted(_all_post_metadata_cache, key=lambda p: p.date, reverse=True)
 
 
+def get_all_tags(posts: List[ParsedPost]) -> List[str]:
+    rtn = set()
+    for p in posts:
+        for t in p.tags:
+            rtn.add(t)
+    return sorted(list(rtn))
+
+
 def gen_post_md(path_title: str) -> str:
     return '- [{}]({})'.format(path_title, url_for('post', path_title=path_title))
 

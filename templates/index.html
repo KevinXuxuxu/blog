@@ -16,13 +16,10 @@
     </ul>
 {% endblock %}
 {% block sidebar %}
-    <!-- <a class="twitter-timeline"
-        data-lang="en"
-        data-width="309"
-        data-theme="light"
-        data-tweet-limit="3"
-        href="https://twitter.com/fzxu8?ref_src=twsrc%5Etfw">
-        Tweets by fzxu8
-    </a>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+    <h4>Tags</h4>
+    {% for t in tags %}
+        <li>
+            <a href="/tag/{{ t }}">{{ t }}</a>
+        </li>
+    {% endfor %}
 {% endblock %}

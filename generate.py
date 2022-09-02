@@ -1,7 +1,7 @@
 from flask_frozen import Freezer
 
 from app import app
-from utils import get_all_posts_with_metadata
+from utils import get_all_posts_with_metadata, get_all_tags
 
 freezer = Freezer(app)
 
@@ -15,6 +15,12 @@ def category():
     all_categories = {p.category for p in get_all_posts_with_metadata()}
     for category in all_categories:
         yield {'category': category}
+
+@freezer.register_generator
+def tag():
+    all_tags = get_all_tags(get_all_posts_with_metadata())
+    for tag in all_tags:
+        yield {'tag': tag}
 
 if __name__ == '__main__':
     freezer.freeze()
