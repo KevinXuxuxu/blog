@@ -1,0 +1,201 @@
+---
+title: Ramp Up on NanoGPT
+date: 2023-02-04 20:58:32
+tags: ["GPT", "LLM", "nanoGPT", "ML"]
+category: tech
+---
+
+During Thanksgiving last year, I finally convinced myself to buy compartments (while the sales were still on) to utilize my NVIDIA RTX 3070 graphics card and assemble a new PC. I did it the first time in 2021 when I was still in Beijing, so this time it went pretty smoothly. Although the main motivation is to play PC games (Got all achievements in Elden Ring soon after :), I do hope to use the graphics card to do some deep learning experiments. So after [Andrej Karpathy](https://karpathy.ai/) released [nanoGPT](https://github.com/karpathy/nanoGPT) and the [Neural Networks: Zero to Hero](https://karpathy.ai/zero-to-hero.html) online course, I know it's a perfect project to start with.
+
+#### Setup environment
+As described in the nanoGPT README, it requires the following to be installed (not sure what the `<3` means though)
+- [pytorch](https://pytorch.org) <3
+- [numpy](https://numpy.org/install/) <3
+- `pip install transformers` for huggingface transformers <3 (to load GPT-2 checkpoints)
+- `pip install datasets` for huggingface datasets <3 (if you want to download + preprocess OpenWebText)
+- `pip install tiktoken` for OpenAI's fast BPE code <3
+- `pip install wandb` for optional logging <3
+- `pip install tqdm`
+
+While here's some caveats I encountered that worth some attention:
+- For a fresh linux machine with just the graphics card driver, you need to install the CUDA libs and dependencies, and this should be on the OS itself, now within one conda environment. Follow this instruction and it might work: [https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=22.04&target_type=deb_local)
+- You need to use the nightly version of Pytorch to be able to [compile model](https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html) which is used by nanoGPT. So for my case use this to install pytorch:
+
+```shell
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 \
+  -c pytorch-nightly -c nvidia
+```
+
+#### Training
+
+Use the `prepare.py` script in each folder of `data/` to download and prepare the data into a binary file which will be directly used for training and validation. The prepare time mainly depend on which dataset you're using (open web text is pretty large) and your network speed.
+
+The training part is also pretty straight forward. Most parameters I have touched are selecting data set, and the ones that controls the model size and data batch size:
+
+```shell
+$ python train.py --dataset=openwebtext \  # dataset to use
+    --n_layer=10 --n_head=10 --n_embd=500 \  # parameters to determine model size
+    --block_size=256 --batch_size=12  # parameters to determine block/batch size
+Overriding: dataset = openwebtext
+Overriding: n_layer = 10
+Overriding: n_head = 10
+Overriding: n_embd = 500
+Overriding: block_size = 256
+Overriding: batch_size = 12
+vocab_size not found in data/openwebtext/meta.pkl, using GPT-2 default of 50257
+Initializing a new model from scratch
+number of parameters: 55.32M  # <---
+compiling the model... (takes a ~minute)
+step 0: train loss 10.9285, val loss 10.9275
+iter 0: loss 10.9285, time 33950.10ms
+iter 1: loss 10.9264, time 356.75ms
+iter 2: loss 10.9129, time 367.66ms
+...
+```
+
+#### Parameter Tuning
+
+I'm not going to talk about some fancy tuning since I'm a noob. The parameter tuning I was doing mostly focused on a more practical sense: to get the training running with limited resources (mostly VRAM). My 3070 comes with around 8G of VRAM and the training get to use around 6G practically speaking, which is not a lot. So I need to tune the parameters (mostly those determines the model size and those determines the data size feed into the model) to get the good balance between memory usage and model quality.
+
+I did some experiments to get the stable training VRAM usage with different set of parameters, and here's the result (Data points (n_layer, n_head, n_embd), n_params, (block_size, batch_size) -> stable VRAM usage during training)
+- (8, 8, 128), 8.08M, (64, 12) -> 1938M
+- (8, 8, 128), 8.08M, (128, 12) -> 2424M
+- (8, 8, 128), 8.08M, (256, 12) -> 3924M
+- (8, 8, 128), 8.08M, (512, 12) -> 6836M (might not reproduce as it approach my gpu limit)
+- (10, 10, 500), 50.32M, (256, 12) -> 5760M
+Note that the dataset used for the above experiments are all open web test, as the shakespeare dataset is too small.
+
+If we assume `x` is the number of parameters (in millions), `y` is the number of datapoint in a batch (block_size * batch_size) and `z` is the VRAM it takes to train (in MB), here is a very simple fit from my data:
+
+```Python
+    42.65 * x + 0.93 * y + 766.86 = z
+```
+
+(BTW the python code I used to fit this data is generated by chatGPT! I'm doing other interesting things on that idea and will definitely write about it later.)
+
+#### Result Evaluation
+
+I wrote a [interactive prompt script](https://github.com/KevinXuxuxu/nanoGPT/blob/master/inter_prompt.py) which is modified from Karpathy's original [sample script](https://github.com/karpathy/nanoGPT/blob/master/sample.py). THe interactive prompt provides a more user-friendly evaluation experience. Here are some result from the 2 dataset I trained on:
+
+- Shakespeare dataset, 3.42M parameters, trained for an hours, didn't record final loss
+
+```text
+prompt: ROMEO:
+ROMEO:
+O, daughter, for I have, I know not the wrong
+About his house.
+
+JULIET:
+
+DUKE VINCENTIO:
+Why, you should not have a tempted me him.
+
+LUCIO:
+Very well, and advise him.
+
+DUKE VINCENTIO:
+What, are you?
+
+VIRGILIA:
+Ay, my gracious sir!
+
+CORIOLANUS
+---------------
+prompt: MACBETH:
+MACBETH:
+Know, to be a prisoner.
+
+Th, I shall be another thing.
+
+KING RICHARD III:
+Well, let them stay.
+
+QUEEN ELIZABETH:
+So must I learn.
+
+KING RICHARD III:
+I would beg a happy mother by the world;
+Theseentss come in patience, and raise great danger;
+And in this my hands, as many deep dear;
+As oft as venomful as
+---------------
+prompt: To be, or not to be
+To be, or not to be a kind something
+That got the old man that seen thee sit:
+So then, for humble, contem help, good counsel.
+
+QUEEN MARGARET:
+Not degenerate children, hold them not thyself.
+
+LADY ANNE:
+What, are thou that is it?
+
+GLOUCESTER:
+That is no traitor to the law, not garland
+That he didhard heard his man that stoop
+ToThat
+```
+
+The result does look like Shakespeare writing, except that it doesn't make sense for the most time. For example although we see Juliet show up in the result from "ROMEO" prompt, we also see e.g. DUKE VINCENTIO which is actually from "Measure for Measure" instead of "Romeo and Juliet".
+
+- Open web text dataset, 55.19M parameters, Trained for ~6h, final loss 3.9:
+
+```text
+prompt: Recipe for lasagna:
+Recipe for lasagna:
+
+(1) Spicy and piquadas
+(2) Chocolate beans
+(3) red beans
+(4) egg whites
+(5) cashews
+(6) mozzarella
+(6) soups
+(8) basil
+(9) paprika
+(10) cumin
+(11) cumin
+(12) basil
+(16) basil
+(16) onions
+---------------
+prompt: More than 100 dead in Turkey and Syria. It’s just past 8am in
+Gaziantep, Turkey, as we receive more information on the total number
+of deaths cause by a powerful earthquake this morning.
+More than 100 dead in Turkey and Syria. It’s just past 8am in Gaziantep,
+Turkey, as we receive more information on the total number of deaths
+cause by a powerful earthquake this morning.
+
+The Syrian government has been accused of running down terrorists and
+terrorists for the last year, the Associated Press reported.
+
+The news outlet also claimed that Russian intelligence sources and
+intelligence agencies have been sent to the Syrian government by state
+and a foreign minister in the autonomous Syrian army, which has been
+accused of bombing eastern Aleppo and the al-Aqsa hospital.
+
+The Syrian government launched the effort on the city of Asm Talm, a
+major port in the north of the city
+---------------
+prompt: In this section we begin to address the claim that TD methods
+make more efficient use of their experience than do supervised-learning
+methods, that they converge more rapidly and make more accurate
+predictions along the way.
+In this section we begin to address the claim that TD methods make
+more efficient use of their experience than do supervised-learning
+methods, that they converge more rapidly and make more accurate
+predictions along the way. While the pattern of applying a pattern to
+my-induced recall is pretty clear, that pattern is extremely important
+in making sure that the results are consistent with my-induced recall.
+
+For example, I wrote “FIFAN,” which includes the “real-world” and
+“real-world” patterns. It’s an average f/A-level function to perform a
+normal recall, but as such is generally the case when large-scale recall
+---------------
+```
+Same as above, the result seems like normal writing, just doesn't make much sense. In the recipe prompt example, it want to put chocolate in lasagna, and there're 2 cumin and 3 basil in the list. In the international news example, it made up some places (e.g. al-Aqsa hospital, Asm Talm) that doesn't exist at all. For the last example, I picked the beginning of a paragraph from the famous [Sutton 1988 RL paper](http://incompleteideas.net/papers/sutton-88-with-erratum.pdf), but the generated content seems to be talking about some sort of information retrieval research?
+
+Overall these models did well to generate content that resembles a certain kind of text, but did very poor when we look into details. I might get better results if I train for longer time to bring the loss under 2 (which I'll try sometime), and/or to train with more parameters which would require better hardware.
+
+#### Future Plan
+Although the resulting model is hardly usable and close to garbage, I still find this experience exciting, since it utilized my graphics card and gives a good exposure to the latest and most popular technology of the day. I'm going to try to finish the online course by Karpathy and learn to fine tune the GPT model and try to train something useful with custom corpus.

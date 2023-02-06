@@ -79,7 +79,8 @@ def parse_attribute(line: str) -> Tuple[str, str]:
 
 
 def parse_post_metadata(path_title: str, md: str) -> ParsedPost:
-    _, metadata_str, content = md.split('---\n')
+    parts = md.split('---\n')
+    metadata_str, content = parts[1], '---\n'.join(parts[2:])
     metadata = {'content': content, 'path_title': path_title}
     for line in metadata_str.strip().split('\n'):
         key, value = parse_attribute(line)
