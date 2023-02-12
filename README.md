@@ -12,7 +12,7 @@ The author of death and gravity has open-sourced his site generator ([andgravity
 
 ### TODO
 - Dark mode
-- Tag/~~category~~ support
+- ~~Tag/category support~~
 - Better layout with header/footer and navigation
 - Flexible theme selection
 - Status post (~~with twitter?~~ github issue?)

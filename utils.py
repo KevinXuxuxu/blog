@@ -1,4 +1,5 @@
 import os
+import sys
 import mistune
 import time
 
@@ -98,3 +99,12 @@ def gen_new_post(title: str):
             title=title,
             time=time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         ))
+
+if __name__ == '__main__':
+    if len(sys.argv) == 1:
+        print('supported verbs: new')
+    elif sys.argv[1] == 'new':
+        if len(sys.argv) != 3:
+            print('e.g. python3 utils.py new <title>')
+        else:
+            gen_new_post(sys.argv[2])
