@@ -1,7 +1,7 @@
 ---
 title: Ramp Up on NanoGPT
 date: 2023-02-04 20:58:32
-tags: ["GPT", "LLM", "nanoGPT", "ML"]
+tags: ["GPT", "LLM", "nanoGPT", "ML", "AI"]
 category: tech
 ---
 
