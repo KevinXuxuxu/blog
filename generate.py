@@ -1,4 +1,5 @@
 from flask_frozen import Freezer
+from shutil import copyfile
 
 from app import app
 from utils import get_all_posts_with_metadata, get_all_tags
@@ -24,3 +25,5 @@ def tag():
 
 if __name__ == '__main__':
     freezer.freeze()
+    # Copy CNAME file to the build dir.
+    copyfile("CNAME", "build/CNAME")
