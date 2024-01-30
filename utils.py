@@ -41,6 +41,9 @@ class HighlightRenderer(mistune.HTMLRenderer):
             return self.decorated_highlight(code, lang)
         return f'<pre><code>' + mistune.escape(code) + '</code></pre>'
 
+    def block_html(self, html) -> str:
+        return html
+
 
 def get_md_factory() -> 'mistune.markdown.Markdown':
     return mistune.create_markdown(renderer=HighlightRenderer(), plugins=['strikethrough'])

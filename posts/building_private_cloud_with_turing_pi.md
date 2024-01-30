@@ -1,7 +1,7 @@
 ---
 title: Building Private Cloud with Turing Pi 2
 date: 2024-01-09 18:55:48
-tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Embedded"]
+tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Embedded", "Private Cloud"]
 category: tech
 ---
 
@@ -14,3 +14,8 @@ The plan was simple, boot everything up, install some container orchestration (m
 - The most underrated challenge is going to be finding stuff to achieve with the setup that actually make sense and meaningful. I have a handful of services that I could try to run on the cluster, but that's probably not the best idea for all of them.
 
 My current progress is that I have a cluster with 4 rpi cm4 setup with k3s and ready to run some of my workload, but the casing and cooling is not resolved so not in a long-running state. I will update to this post (or link to new posts) about my previous setups and lessons learnt, and also new progress I would make in the future. Wish me luck!
+
+*2024/01/29 Update:*
+
+I have (finally) started writing the series of posts:
+1. [Basic Setup](/blog/post/building_private_cloud_basic_setup/)
