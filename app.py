@@ -14,7 +14,7 @@ def index():
     index_md = get_local_content('pages', 'index')
     md_factory = get_md_factory()
     html = md_factory(index_md)
-    tags = get_all_tags(all_posts)
+    tags = get_top_k_tags(all_posts, 25)
     return render_template('index.html', rendered_content=html, posts=all_posts, tags=tags)
 
 @app.route("/blog/category/<category>/")

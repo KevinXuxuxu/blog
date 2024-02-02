@@ -3,7 +3,7 @@ import sys
 import mistune
 import time
 
-from collections import namedtuple
+from collections import namedtuple, Counter
 from flask.helpers import url_for
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
@@ -71,6 +71,15 @@ def get_all_tags(posts: List[ParsedPost]) -> List[str]:
         for t in p.tags:
             rtn.add(t)
     return sorted(list(rtn))
+
+
+def get_top_k_tags(posts: List[ParsedPost], K: int) -> List[str]:
+    tags = Counter()
+    for p in posts:
+        for t in p.tags:
+            tags[t] += 1
+    sorted_tags = sorted(tags.items(), key=lambda x:x[1], reverse=True)
+    return [tag[0] for tag in sorted_tags[:K]]
 
 
 def gen_post_md(path_title: str) -> str:
