@@ -94,3 +94,5 @@ I should probably stop here because it's already a long post. But now you can pl
 I will cover more detailed content in following posts, including how to utilize Traefik ingress controller, how to setup different services e.g. regular web server, DNS server (utilizing CoreDNS), network proxy service, and much more.
 
 Hope you enjoy :)
+
+*For the list of the series of blog posts about building private cloud, click [here](/blog/post/building_private_cloud_with_turing_pi/).*
