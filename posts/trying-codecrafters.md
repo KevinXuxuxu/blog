@@ -6,7 +6,7 @@ category: tech
 ---
 
 Recently I came upon this interesting online interactive learning program called [Codecrafters](https://codecrafters.io/), which is a series of small projects with guidance for you to learn along the way. In their own words:
-> Recreate Redis, Git, Docker — with your own hands. Gain expert-level confidence by taking action and diving deep, learning from the world's best.
+> Recreate Redis, Git, Docker -- with your own hands. Gain expert-level confidence by taking action and diving deep, learning from the world's best.
 So I've been told. I tried to sell the idea to my manager and got quickly approved (with a bunch of valuable comments that I really appreciate), and I proceed to start the 3-day free trail, followed by a 3-month subscription for $200 (wow), with 2/3 of that covered by my company.
 
 Well, you only get charged if you still like it _after_ the free trail, after all that's what free trail means.

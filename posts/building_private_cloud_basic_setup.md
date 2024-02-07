@@ -1,7 +1,7 @@
 ---
 title: Building Private Cloud: Basic Setup
 date: 2024-01-29 06:57:47
-tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Embedded", "Private Cloud"]
+tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Private Cloud"]
 category: tech
 ---
 

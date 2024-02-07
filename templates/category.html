@@ -3,7 +3,7 @@
     <h1 class="heading-index">{{ category }}</h1>
 {% endblock %}
 {% block body %}
-<p>Here is a list of my blogs of category <code>{{ category }}</code></p>
+<p>Here is a list of my blogs of category <span class="chip bg-secondary text-primary">{{ category }}</p>
 <ul>
     {% for p in posts %}
         <li><a href="/blog/post/{{ p.path_title }}/">{{ p.title }}</a></li>

@@ -18,8 +18,6 @@
 {% block sidebar %}
     <h4>Tags</h4>
     {% for t in tags %}
-        <li>
-            <a href="/blog/tag/{{ t }}">{{ t }}</a>
-        </li>
+        <span class="chip bg-gray"><a href="/blog/tag/{{ t }}/" class="text-dark">{{ t }}</a></span>
     {% endfor %}
 {% endblock %}

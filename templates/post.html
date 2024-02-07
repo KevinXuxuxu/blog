@@ -8,7 +8,10 @@
 
     <p class="text-gray">
         <small>{{ post.date | default("") }}</small>
-        <a href="/blog/category/{{ post.category }}/"><small><code>{{ post.category }}</code></small></a>
+        <span class="chip bg-secondary"><a href="/blog/category/{{ post.category }}/" class="text-primary">{{ post.category }}</a></span>
+        {% for tag in post.tags %}
+        <span class="chip bg-gray"><a href="/blog/tag/{{ tag }}/" class="text-dark">{{ tag }}</a></span>
+        {% endfor %}
     </p>
 {% endblock %}
 {% block body %}

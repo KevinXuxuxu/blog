@@ -1,7 +1,7 @@
 ---
 title: Building Private Cloud with Turing Pi 2
 date: 2024-01-09 18:55:48
-tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Embedded", "Private Cloud"]
+tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Private Cloud"]
 category: tech
 ---
 
