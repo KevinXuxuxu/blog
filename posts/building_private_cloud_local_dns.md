@@ -7,7 +7,7 @@ category: tech
 
 I have mentioned a strange problem in [a previous post](/blog/post/building_private_cloud_hosting_web_service/#up_next) that I'm not able to access services hosted in my cluster from within my home subnet, but it works from outside. This issue bothered me quite a while, once I was even considering that the whole Traefik stack is broken with this k3s distribution. (Which is reasonable because honestly who would turn off phone wifi to check home cluster network issue?)
 
-The solution I have is to utilize the [CoreDNS](https://coredns.io/) service that comes with k3s as a local self-hosted DNS server, and resolve my inter-cluster services directly to my cluster IP, so that it doesn't have to go the long way, avoiding whatever problem that way had. Plus, having a local DNS is very convenient when you have some internal service, but want cool domain name and TLS enabled for them.
+The solution I have is to utilize the [CoreDNS](https://coredns.io/) service that comes with k3s as a local DNS server, and resolve my inter-cluster services directly to my cluster IP, so that it doesn't have to go the long way, avoiding whatever problem is with that way. Plus, having a local DNS is very convenient when you have some internal service, but want cool domain name and TLS enabled for them.
 
 So let's get right into it.
 
@@ -64,14 +64,14 @@ Volumes:
     DownwardAPI:              true
 ...
 ```
-From the config we got important pieces of information:
+From the config we have important pieces of information:
 - CoreDNS has very high priority and is in `system-cluster-critical` priority class.
 - CoreDNS is opening port `53` on UDP and TCP for the main service, and port `9153` for metrics. `53` is the default port used to serve most DNS requests.
 - The main configuration source is `/etc/coredns/Corefile`, which is mounted from a k8s `ConfigMap` named `coredns`. But there're 2 other volumes mounted:
     - `coredns-custom`, which is used for custom DNS rules, which will be covered later.
     - `kube-root-ca.crt` which is the k8s root ca provider. The volume type is `Projected` which means that the content inside is managed by other service and subject to change.
 
-#### the Corefile
+#### The Corefile
 
 Now let's take a look at the `Corefile` used to configure the DNS behaviors:
 
