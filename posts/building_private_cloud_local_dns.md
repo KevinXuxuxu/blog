@@ -5,7 +5,7 @@ tags: ["k8s", "Private Cloud", "Network", "DNS", "CoreDNS"]
 category: tech
 ---
 
-I have mentioned a strange problem in [a previous post](/blog/post/building_private_cloud_hosting_web_service/) that I'm not able to access services hosted in my cluster from within my home subnet, but it works from outside. This issue bothered me quite a while, once I was even considering that the whole Traefik stack is broken with this k3s distribution. (Which is reasonable because honestly who would turn off phone wifi to check home cluster network issue?)
+I have mentioned a strange problem in [a previous post](/blog/post/building_private_cloud_hosting_web_service/#up_next) that I'm not able to access services hosted in my cluster from within my home subnet, but it works from outside. This issue bothered me quite a while, once I was even considering that the whole Traefik stack is broken with this k3s distribution. (Which is reasonable because honestly who would turn off phone wifi to check home cluster network issue?)
 
 The solution I have is to utilize the [CoreDNS](https://coredns.io/) service that comes with k3s as a local self-hosted DNS server, and resolve my inter-cluster services directly to my cluster IP, so that it doesn't have to go the long way, avoiding whatever problem that way had. Plus, having a local DNS is very convenient when you have some internal service, but want cool domain name and TLS enabled for them.
 
@@ -116,13 +116,13 @@ NodeHosts:
 ...
 ```
 
-The `Corefile` itself has only one rule that starts with `.:53`, which means this rule resolves DNS requests to port `53` of all domains. Within it is a few important components:
+The `Corefile` itself has only one rule that starts with `.:53`, which means this rule resolves DNS requests to port `53` of all domains. Within it are a few important components:
 - `kubernetes` is [the plugin](https://coredns.io/plugins/kubernetes/) used for k8s service discovery, just leave it there so that nothing gets broken.
 - `hosts` [plugin](https://coredns.io/plugins/hosts/) reads a hosts file and use that for domain resolution. For now it read the file `/etc/coredns/NodeHosts` whose content is from the same config map. We'll be mostly changing this for now.
 - `forward` [plugin](https://coredns.io/plugins/forward/) defines the behavior that delegates name resolution to other nameservers. In this case it forwards requests to whatever server that's in `/etc/resolv.conf`, which should be populated by the containers network environment. For a homelab, that's mostly being configured by your ISP.
 - Custom plugins in the main rule is imported from `/etc/coredns/custom/*.override` and custom rules are imported from `/etc/coredns/custom/*.server`, which is not configured by default but is something to consider if you want to do more fancy stuff.
 
-To edit this existing `ConfigMap` we can use the following command:
+To edit this existing `ConfigMap`, use the following command:
 
 ```shell
 $ kubectl edit configmap coredns -n kube-system
@@ -142,7 +142,7 @@ Note that the "external" in this context means "external of the cluster". So we 
 
 Not yet. As we mentioned before, any service within the cluster has to use Traefik to expose to requesters outside of the cluster. The CoreDNS by default only serves the inter-cluster use case, so we need to add the missing pieces.
 
-Remember the piece of YAML (from [this post](/blog/post/building_private_cloud_hosting_web_service/)) we applied for Traefik that configures the auto certificate signing with Let's Encrypt? Add the following to it and apply again. This will add a new Traefik entrypoint for port `53`:
+Remember [the piece of YAML](/blog/post/building_private_cloud_hosting_web_service/#https) we applied for Traefik that configures the auto certificate signing with Let's Encrypt? Add the following to it and apply again. This will add a new Traefik entrypoint for port `53`:
 
 ```yaml
 ...
@@ -196,3 +196,5 @@ Although I'm able to find a relatively good solution, it's still not clear what 
 Anyways, that's all for this post. In following posts we'll shift gears and talk about storage solutions for private cloud (if I get all the work done), as well as hosting local container registry in a k8s context. Hope you enjoy :)
 
 BTW Happy Chinese New Year!
+
+*For the list of the series of blog posts about building private cloud, click [here](/blog/tag/Private%20Cloud/).*

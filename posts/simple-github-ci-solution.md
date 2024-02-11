@@ -79,7 +79,7 @@ This is the Dockerfile I used to make it instantly runnable for better scaling (
 
 There's also a hack I need to confess. The runner doesn't want you to run it as a sudo user for security reasons, especially for open source projects because random PR is going to trigger runners to run possibly malicious code on your machine. While my devops environment is built with just a root user (which is probably not good), I bypassed the check just to quickly get it working since my runner runs in docker container which is already isolation (sort of). I'll put more research into this, specificly on how code within container could affect the host, how to properly not use root, and how is that safer anyways.
 
-### Followup
+#### Followup
 
 OK, they got me again. Basically the Github self-hosted actions runner is as good as supporting automatic update when there is a new version available. When the update happens, old scripts are overwritten by the new version, which makes my "escape non-sudo user check" hack fail.
 

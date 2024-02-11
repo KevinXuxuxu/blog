@@ -95,4 +95,4 @@ I will cover more detailed content in following posts, including how to utilize 
 
 Hope you enjoy :)
 
-*For the list of the series of blog posts about building private cloud, click [here](/blog/post/building_private_cloud_with_turing_pi/).*
+*For the list of the series of blog posts about building private cloud, click [here](/blog/tag/Private%20Cloud/).*

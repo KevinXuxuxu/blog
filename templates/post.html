@@ -1,6 +1,21 @@
 {% extends "layout.html" %}
 {% block extraheader %}
     <title>{{ post.title }}</title>
+
+    <style>
+        /* Initially hide the element */
+        .hidden {
+          display: none;
+        }
+        
+        /* Show the element when it's hovered over */
+        h3:hover .hidden {
+          display: inline-block;
+        }
+        h4:hover .hidden {
+          display: inline-block;
+        }
+    </style>
 {% endblock %}
 {% block head %}
     <figure class="avatar avatar-sm">
