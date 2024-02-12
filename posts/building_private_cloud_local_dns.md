@@ -5,9 +5,9 @@ tags: ["k8s", "Private Cloud", "Network", "DNS", "CoreDNS"]
 category: tech
 ---
 
-I have mentioned a strange problem in [a previous post](/blog/post/building_private_cloud_hosting_web_service/#up_next) that I'm not able to access services hosted in my cluster from within my home subnet, but it works from outside. This issue bothered me quite a while, once I was even considering that the whole Traefik stack is broken with this k3s distribution. (Which is reasonable because honestly who would turn off phone wifi to check home cluster network issue?)
+In [a previous post]((/blog/post/building_private_cloud_hosting_web_service/#up_next)), I touched on this weird problem where I can't access anything hosted in my cluster from my home network, but it works perfectly from outside. It's been driving me crazy – at one point, I even thought my whole Traefik setup was fried. (Honestly, who'd think to turn off their phone's WiFi to troubleshoot a home network problem?)
 
-The solution I have is to utilize the [CoreDNS](https://coredns.io/) service that comes with k3s as a local DNS server, and resolve my inter-cluster services directly to my cluster IP, so that it doesn't have to go the long way, avoiding whatever problem is with that way. Plus, having a local DNS is very convenient when you have some internal service, but want cool domain name and TLS enabled for them.
+My solution uses the [CoreDNS](https://coredns.io/) service (which comes with k3s) as a local DNS server. This lets me resolve inter-cluster service names directly to my cluster IP, bypassing whatever strange routing issue was happening before. As a bonus, having a local DNS makes it super easy to set up custom domain names and TLS for internal services.
 
 So let's get right into it.
 
@@ -116,7 +116,7 @@ NodeHosts:
 ...
 ```
 
-The `Corefile` itself has only one rule that starts with `.:53`, which means this rule resolves DNS requests to port `53` of all domains. Within it are a few important components:
+The `Corefile` itself has only one rule that starts with `.:53`, which means this rule resolves DNS requests to port `53` for all domains. Within it are a few important components:
 - `kubernetes` is [the plugin](https://coredns.io/plugins/kubernetes/) used for k8s service discovery, just leave it there so that nothing gets broken.
 - `hosts` [plugin](https://coredns.io/plugins/hosts/) reads a hosts file and use that for domain resolution. For now it read the file `/etc/coredns/NodeHosts` whose content is from the same config map. We'll be mostly changing this for now.
 - `forward` [plugin](https://coredns.io/plugins/forward/) defines the behavior that delegates name resolution to other nameservers. In this case it forwards requests to whatever server that's in `/etc/resolv.conf`, which should be populated by the containers network environment. For a homelab, that's mostly being configured by your ISP.

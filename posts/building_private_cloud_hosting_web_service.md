@@ -229,4 +229,4 @@ When I was learning the k3s and Traefik networking stuff, I got some strange iss
 
 Happy hacking! :)
 
-*For the list of the series of blog posts about building private cloud, click [here](/blog/post/building_private_cloud_with_turing_pi/).*
+*For the list of the series of blog posts about building private cloud, click [here](/blog/tag/Private%20Cloud/).*
