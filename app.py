@@ -2,10 +2,12 @@ from flask import Flask, render_template
 
 from utils import *
 
+from opencoder.app import sub_app
 
 app = Flask(__name__)
 
 app.config['FREEZER_DESTINATION_IGNORE'] = ['.git*', 'online_tool']
+app.register_blueprint(sub_app, url_prefix='/opencoder')
 
 
 @app.route("/")
