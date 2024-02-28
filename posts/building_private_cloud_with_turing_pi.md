@@ -21,3 +21,4 @@ I have (finally) started writing the series of posts:
 1. [Basic Setup](/blog/post/building_private_cloud_basic_setup/)
 2. [Hosting Web Service](/blog/post/building_private_cloud_hosting_web_service/)
 3. [Local DNS](/blog/post/building_private_cloud_local_dns/)
+4. [Storage Solution](/blog/posts/building_private_cloud_storage_solution/)
