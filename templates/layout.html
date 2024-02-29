@@ -3,8 +3,9 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="stylesheet" href="/static/style/spectre.min.css">
+        <link id="spectre" rel="stylesheet" href="/static/style/spectre.min.css">
         <link rel="stylesheet" href="/static/style/pygments_style.css">
+        <script src="/static/script/color_theme.js"></script>
         {% block extraheader %}
         {% endblock %}
         <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon_io/apple-touch-icon.png">
@@ -14,12 +15,17 @@
     </head>
     <body>
         <div class="main container grid-lg">
+            <header class="navbar">
+                <section class="navbar-section">
+                </section>
+                <section class="navbar-section">
+                    <label class="form-switch">
+                        <input type="checkbox" onclick="switch_color_theme();">
+                        <i class="form-icon"></i> <p id="moon"></p>
+                    </label>
+                </section>
+            </header>
             <header class="column col-sm-12 col-md-10 col-8">
-                <nav>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item">&nbsp;
-                    </ul>
-                </nav>
                 {% block head %}
                 {% endblock %}
             </header>
