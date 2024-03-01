@@ -1,3 +1,6 @@
+// var dark_css_path;
+// var light_css_path;
+
 function setCookie(cName, cValue, expDays) {
     let date = new Date();
     date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
@@ -21,10 +24,10 @@ function set_color_theme(color_theme) {
     var spectre_style = document.getElementById('spectre');
     var moon = document.getElementById('moon');
     if (color_theme === 'dark') {
-        spectre_style.setAttribute('href', '/static/style/spectre_dark.min.css');
+        spectre_style.setAttribute('href', dark_css_path);
         moon.textContent = '🌖';
     } else {
-        spectre_style.setAttribute('href', '/static/style/spectre.min.css');
+        spectre_style.setAttribute('href', light_css_path);
         moon.textContent = '🌒';
     }
 }
