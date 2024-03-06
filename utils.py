@@ -51,6 +51,12 @@ class HighlightRenderer(mistune.HTMLRenderer):
         link_anchor = f'<a class="hidden" tabindex="-1" href="#{tid}" style="font-size: .8rem">{link_icon}</a>'
         return f'''<{tag} id="{tid}">{text}&nbsp;{link_anchor}</{tag}>\n'''
 
+    def image(self, src, alt="", title=None):
+        src = self._safe_url(src)
+        alt = mistune.util.escape_html(alt)
+        caption_html = f'<em class="text-gray">{mistune.util.escape_html(title)}</em>' if title else ''
+        return f'<p style="text-align: center"><img src="{src}" alt="{alt}" style="width: 100%"/>{caption_html}</p>'
+
 
 def get_md_factory() -> 'mistune.markdown.Markdown':
     return mistune.create_markdown(renderer=HighlightRenderer(), plugins=['strikethrough'])

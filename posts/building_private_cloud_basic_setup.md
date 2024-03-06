@@ -7,9 +7,7 @@ category: tech
 
 As mentioned in [a previous post](/blog/post/building_private_cloud_with_turing_pi/), I have acquired enough parts that's needed for me to start working on building a private cloud (or homelab). This series of blog posts is to record my experience of building this hardware/software system, and hopefully serve as a guide or pointer to anyone trying to do similar things.
 
-<img src="/static/image/private_cloud.jpg" style="width: 100%"/>
-
-*Finished hardware setup and deployment, only software level work left*
+![private_cloud](/static/image/private_cloud.jpg "Finished hardware setup and deployment, only software level work left")
 
 #### Hardware
 I have to admit that I underestimated the effort that would go into preparing the hardware needed for the setup. Especially when it's your first time, and you're not sure what is needed. So here's a list of hardwares I'm currently using:

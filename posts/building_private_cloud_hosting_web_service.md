@@ -13,7 +13,7 @@ The [k3s](https://docs.k3s.io/) system is very convenient in terms of supporting
 
 Traefik is a complex system with some internal structures and works with many other services. But for now we mostly care about it's role as a network proxy for our internal services. As shown in this graph I got from [Traefik docs](https://doc.traefik.io/traefik/routing/overview/), it clearly defines components corresponding to each logic abstraction related to the problem it's solving:
 
-<img src="https://doc.traefik.io/traefik/assets/img/architecture-overview.png" style="width: 100%"/>
+![traefik_arch_overview](/static/image/traefik_arch_overview.webp "Architecture Overview of Traefik Ingress Controller")
 
 - Entrypoint: What are the overall entrypoints of the cluster? There might be many more services in the cluster than the number of ports we're reasonably able to expose, so this is a very important abstraction in network engineering.
 - Routers: This is the part where we apply different rules to determine where the the request goes, and we might do some modification to the request, among which the most common one is [SSL termination](https://en.wikipedia.org/wiki/TLS_termination_proxy). This is the part that contains most logic.

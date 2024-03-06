@@ -26,7 +26,7 @@ Now let's talk about some major solutions that we can potentially use:
 #### Hardware Limitations
 
 As mentioned in my [previous post](/blog/post/building_private_cloud_basic_setup/), my cluster is setup on the [Turing Pi 2](https://turingpi.com/product/turing-pi-2-5/) computing board, which has inherent hardware and connectivity limitations that's covered in [Specs and IO ports doc](https://docs.turingpi.com/docs/turing-pi2-specs-and-io-ports):
-<img src="https://files.readme.io/e5637c6-TuringPi_V2_interconnection.png" style="width: 100%"/>
+![turingpi2_io](/static/image/turingpi2_io.png "Turing Pi 2 Front Side IO Specification")
 
 - Only node 1 and 2 have mini-PCIe connectivity, so it's hard to implement any distributed solution with consistent storage on each node.
 - With Raspberry Pi CM4, the PCIe compatibility is not trivial and very uncertain. Jeff Geerling built a [RPi PCIe Database](https://pipci.jeffgeerling.com/) which contains some tested SSD cards that's supposed to work with CM4. But the data might be stale, and sourcing (old) hardware of specific model could be hard and expensive. Will cover more on this later.
@@ -166,7 +166,7 @@ Here's the setup of the benchmarks:
 - Target nodes: rk1 which is plugged with NVME and hosting NFS, rpicm4n1 which is mounting the NVME as NFS client
 - Measure overall throughput and p99 latency
 
-<img src="/static/image/fileio_bench.png" style="width: 100%" />
+![benchmark_result](/static/image/fileio_bench.png "Simple Benchmark Result with sysbench fileio")
 
 The result verifies most of my assumptions, and also shows some potential improvements in the future:
 - Most of the time NAS performs the same or worse than NVME, except for sequential write. I don't have a clear answer for that but maybe NAS has some sort of write cache?
