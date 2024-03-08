@@ -59,7 +59,7 @@ class HighlightRenderer(mistune.HTMLRenderer):
 
 
 def get_md_factory() -> 'mistune.markdown.Markdown':
-    return mistune.create_markdown(renderer=HighlightRenderer(), plugins=['strikethrough'])
+    return mistune.create_markdown(renderer=HighlightRenderer(), plugins=['strikethrough', 'footnotes'])
 
 
 def get_local_content(folder: str, path_title: str) -> str:
