@@ -2,7 +2,7 @@
 title: Building Private Cloud: Local Container Registry
 date: 2024-04-14 04:47:45
 tags: ["Private Cloud", "k8s", "Docker", "Container Registry"]
-category: default
+category: tech
 ---
 In this short post we're going to cover my experience on setting up a local container registry that runs within my cluster. This greatly helps reduce the overall ingress traffic throughout the development and maintenance of applications on the cluster, and also removed the necessity of exposing image on public registries (e.g. [Docker Hub](https://hub.docker.com/)) that force you to pay for better security.
 
