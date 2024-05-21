@@ -168,3 +168,5 @@ For any publicly available images you should be able to use the local registry a
 According to my experience the image pulling speed is not significantly faster than pull from public registry, probably because my in-house network infrastructure is not in any way advanced. But it does greatly reduce the network bandwidth usage by a lot, especially when I'm constantly re-deploying images for development purposes.
 
 That's all for this post and hope you enjoyed :)
+
+*For the list of the series of blog posts about building private cloud, click [here](/blog/tag/Private%20Cloud/).*

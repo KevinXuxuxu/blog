@@ -17,8 +17,4 @@ My current progress is that I have a cluster with 4 rpi cm4 setup with k3s and r
 
 *2024/01/29 Update:*
 
-I have (finally) started writing the series of posts:
-1. [Basic Setup](/blog/post/building_private_cloud_basic_setup/)
-2. [Hosting Web Service](/blog/post/building_private_cloud_hosting_web_service/)
-3. [Local DNS](/blog/post/building_private_cloud_local_dns/)
-4. [Storage Solution](/blog/posts/building_private_cloud_storage_solution/)
+I have (finally) started writing the series, check [here](/blog/tag/Private%20Cloud/) for a running list of posts :)

@@ -95,3 +95,5 @@ There're 2 other things I probably need to work to make this more of a thoroughl
 Another security measurement to take is to do network lockdown for the `cloudflared` deployment. Basically I can label my internal services to be publicly accessible or not, and restrict network traffic from `cloudflared` strictly to those services. This help tighten the access control of public traffic even if there's misconfiguration of worse things happening.
 
 Hope you enjoyed and until next time!
+
+*For the list of the series of blog posts about building private cloud, click [here](/blog/tag/Private%20Cloud/).*
