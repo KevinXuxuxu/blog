@@ -52,10 +52,19 @@ class HighlightRenderer(mistune.HTMLRenderer):
         return f'''<{tag} id="{tid}">{text}&nbsp;{link_anchor}</{tag}>\n'''
 
     def image(self, src, alt="", title=None):
+        '''
+        title is repurposed to contain the following information separated by ;;
+            caption, percent_width
+        '''
+        d = {}
+        if title:
+            d = {i: v for i, v in enumerate(title.split(';;'))}
+        caption = d.get(0, None)
+        percent_width = d.get(1, 100)
         src = self._safe_url(src)
         alt = mistune.util.escape_html(alt)
-        caption_html = f'<em class="text-gray">{mistune.util.escape_html(title)}</em>' if title else ''
-        return f'<p style="text-align: center"><img src="{src}" alt="{alt}" style="width: 100%"/>{caption_html}</p>'
+        caption_html = f'<em class="text-gray">{mistune.util.escape_html(caption)}</em>' if caption else ''
+        return f'<p style="text-align: center"><img src="{src}" alt="{alt}" style="width: {percent_width}%"/><br>{caption_html}</p>'
 
 
 def get_md_factory() -> 'mistune.markdown.Markdown':
