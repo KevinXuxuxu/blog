@@ -36,9 +36,9 @@ class HighlightRenderer(mistune.HTMLRenderer):
     <pre class="code" data-lang="{lang}">{code}</pre>
 </div>'''
 
-    def block_code(self, code, lang=None) -> str:
-        if lang:
-            return self.decorated_highlight(code, lang)
+    def block_code(self, code, info=None) -> str:
+        if info:
+            return self.decorated_highlight(code, info)
         return f'<pre><code>' + mistune.escape(code) + '</code></pre>'
 
     def block_html(self, html) -> str:
@@ -51,7 +51,7 @@ class HighlightRenderer(mistune.HTMLRenderer):
         link_anchor = f'<a class="hidden" tabindex="-1" href="#{tid}" style="font-size: .8rem">{link_icon}</a>'
         return f'''<{tag} id="{tid}">{text}&nbsp;{link_anchor}</{tag}>\n'''
 
-    def image(self, src, alt="", title=None):
+    def image(self, alt, url, title=None):
         '''
         title is repurposed to contain the following information separated by ;;
             caption, percent_width
@@ -61,14 +61,14 @@ class HighlightRenderer(mistune.HTMLRenderer):
             d = {i: v for i, v in enumerate(title.split(';;'))}
         caption = d.get(0, None)
         percent_width = d.get(1, 100)
-        src = self._safe_url(src)
-        alt = mistune.util.escape_html(alt)
-        caption_html = f'<em class="text-gray">{mistune.util.escape_html(caption)}</em>' if caption else ''
-        return f'<p style="text-align: center"><img src="{src}" alt="{alt}" style="width: {percent_width}%"/><br>{caption_html}</p>'
+        url = mistune.escape_url(url)
+        alt = mistune.escape(alt)
+        caption_html = f'<em class="text-gray">{mistune.escape(caption)}</em>' if caption else ''
+        return f'<p style="text-align: center"><img src="{url}" alt="{alt}" style="width: {percent_width}%"/><br>{caption_html}</p>'
 
 
 def get_md_factory() -> 'mistune.markdown.Markdown':
-    return mistune.create_markdown(renderer=HighlightRenderer(), plugins=['strikethrough', 'footnotes'])
+    return mistune.create_markdown(renderer=HighlightRenderer(), plugins=['strikethrough', 'footnotes', 'math'])
 
 
 def get_local_content(folder: str, path_title: str) -> str:
