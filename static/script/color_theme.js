@@ -21,13 +21,14 @@ function getCookie(cName) {
 
 function set_color_theme(color_theme) {
     setCookie('color_theme', color_theme, 30);
-    var spectre_style = document.getElementById('spectre');
     var moon = document.getElementById('moon');
+    var checkbox = document.getElementById('theme-checkbox');
+    document.documentElement.setAttribute('data-theme', color_theme);
     if (color_theme === 'dark') {
-        spectre_style.setAttribute('href', dark_css_path);
+        checkbox.checked = true;
         moon.textContent = '🌖';
     } else {
-        spectre_style.setAttribute('href', light_css_path);
+        checkbox.checked = false;
         moon.textContent = '🌒';
     }
 }

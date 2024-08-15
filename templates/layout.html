@@ -3,12 +3,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link id="spectre" rel="stylesheet" href="/static/style/spectre.min.css">
+        <link id="spectre" rel="stylesheet" href="/static/style/spectre.css">
         <link rel="stylesheet" href="/static/style/pygments_style.css">
-        <script>
-            var dark_css_path = "/static/style/spectre_dark.min.css";
-            var light_css_path = "/static/style/spectre.min.css";
-        </script>
         <script src="/static/script/color_theme.js"></script>
         <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -26,7 +22,7 @@
                 </section>
                 <section class="navbar-section">
                     <label class="form-switch">
-                        <input type="checkbox" onclick="switch_color_theme();">
+                        <input id="theme-checkbox" type="checkbox" onclick="switch_color_theme();">
                         <i class="form-icon"></i> <p id="moon"></p>
                     </label>
                 </section>
