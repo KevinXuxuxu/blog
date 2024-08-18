@@ -151,7 +151,8 @@ We're half way there. As long as the ray is not parallel to the plane, there mus
 The approach is as follows: If the point is $Q$, take any edge vector by the counter-clockwise ordering of the triangle, e.g. $\overrightarrow{AB}$, we have
 $$
 \displaylines {
-    (\overrightarrow{AB}\times\overrightarrow{AQ})\cdot\vec{n} < 0 \Rightarrow Q \text{ is on the right side of } \overrightarrow{AB} \\
+    (\overrightarrow{AB}\times\overrightarrow{AQ})\cdot\vec{n} < 0 \\
+    \Rightarrow Q \text{ is on the right side of } \overrightarrow{AB} \\
     \Rightarrow Q \text{ is outside of } ABC
 }
 $$
