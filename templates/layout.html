@@ -5,7 +5,12 @@
 
         <link id="spectre" rel="stylesheet" href="/static/style/spectre.css">
         <link rel="stylesheet" href="/static/style/pygments_style.css">
+
         <script src="/static/script/color_theme.js"></script>
+        <script>
+            init_color_theme();
+        </script>
+
         <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         {% block extraheader %}
@@ -22,8 +27,8 @@
                 </section>
                 <section class="navbar-section">
                     <label class="form-switch">
-                        <input id="theme-checkbox" type="checkbox" onclick="switch_color_theme();">
-                        <i class="form-icon"></i> <p id="moon"></p>
+                        <input id="theme-checkbox" type="checkbox" onclick="switch_color_theme();" disabled>
+                        <i class="form-icon"></i> <p id="moon">⏳</p>
                     </label>
                 </section>
             </header>

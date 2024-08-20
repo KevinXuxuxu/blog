@@ -1,6 +1,3 @@
-// var dark_css_path;
-// var light_css_path;
-
 function setCookie(cName, cValue, expDays) {
     let date = new Date();
     date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
@@ -8,11 +5,11 @@ function setCookie(cName, cValue, expDays) {
     document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
 }
 
-function getCookie(cName) {
+function getCookie(cName, default_value) {
     const name = cName + "=";
     const cDecoded = decodeURIComponent(document.cookie); //to be careful
-    const cArr = cDecoded .split('; ');
-    let res;
+    const cArr = cDecoded.split('; ');
+    let res = default_value;
     cArr.forEach(val => {
         if (val.indexOf(name) === 0) res = val.substring(name.length);
     })
@@ -34,20 +31,31 @@ function set_color_theme(color_theme) {
 }
 
 function init_color_theme() {
-    var color_theme = getCookie('color_theme');
-    if (color_theme == null || color_theme === 'light') {
-        set_color_theme('light');
+    var color_theme = getCookie('color_theme', 'light');
+    document.documentElement.setAttribute('data-theme', color_theme);
+}
+
+function init_color_switch() {
+    var color_theme = getCookie('color_theme', 'light');
+    var moon = document.getElementById('moon');
+    var checkbox = document.getElementById('theme-checkbox');
+    if (color_theme === 'dark') {
+        checkbox.checked = true;
+        moon.textContent = '🌖';
     } else {
-        set_color_theme('dark');
+        checkbox.checked = false;
+        moon.textContent = '🌒';
     }
+    checkbox.removeAttribute('disabled');
 }
 
 function switch_color_theme() {
-    if (getCookie('color_theme') === 'dark') {
+    let color_theme = getCookie('color_theme', 'light');
+    if (color_theme === 'dark')  {
         set_color_theme('light');
     } else {
         set_color_theme('dark');
     }
 }
 
-window.onload = init_color_theme;
+window.onload = init_color_switch;
