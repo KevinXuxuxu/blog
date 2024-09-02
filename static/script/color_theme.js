@@ -58,4 +58,9 @@ function switch_color_theme() {
     }
 }
 
-window.onload = init_color_switch;
+document.addEventListener("DOMContentLoaded", function() {
+    const element = document.getElementById("color-switch");
+    if (element) {
+        init_color_switch();
+    }
+});
