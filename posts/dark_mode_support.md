@@ -20,7 +20,7 @@ I have been happily using this framework for a few years now, but my work is mos
 
 Unfortunately it doesn't support dark mode. And since it has been idle (abandoned?) for almost 4 years ([last commit](https://github.com/picturepan2/spectre/commit/8847251d71b4dac27e8407cbdb71ae89ce156a43)), I don't expect it to be supported anytime soon. There're some others forking the repo and making their own dark mode, but I still prefer the path of learning and making a dark mode myself.
 
-#### SPECTRE.CSS
+#### Spectre.css
 
 So the plan is simple: fork and clone the repo, try to compile it, read and understand it just enough to know the key part that controls the colors, and configure it using a beautiful dark mode pallet. So as suggested in the [doc](https://picturepan2.github.io/spectre/getting-started/custom.html), I used the npm of god knows what version I have on my mac and did `npm install`, and it failed without any surprise.
 
@@ -104,3 +104,5 @@ Anyways, I whipped up some rough JS on to a generic switch element from Spectre 
 There's still a bunch of work to do[^4] but that's mostly it. Hope you enjoyed and happy hacking!
 
 [^4]: Mostly color adjustments for chip elements, code block, ... Also when you are in dark mode and going to a new page, the screen will quickly flash depending on the loading speed, and I don't have a very good solution yet. May be I'll have to use the `data-theme="dark"` approach ([ref](https://github.com/coliff/dark-mode-switch?tab=readme-ov-file#how-it-works)) instead of css switching, which involves much more complex change into Spectre's codebase.
+
+*2024-09-01 Update*: [Followup blog](/blog/post/Dark-Mode-Support-%28Cont.%29/)
