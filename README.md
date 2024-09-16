@@ -11,9 +11,9 @@ Inspired by [death and gravity](https://death.andgravity.com/about#colophon), bu
 The author of death and gravity has open-sourced his site generator ([andgravity-generator](https://github.com/lemon24/andgravity-generator/)) which is most likely much better than mine. Building this project is a very rewarding learning experience, and I'll add some more traditional features for common blog site that's not covered by his tool.
 
 ### TODO
-- Dark mode
+- ~~Dark mode~~
 - ~~Tag/category support~~
 - Better layout with header/footer and navigation
-- Flexible theme selection
+- ~~Flexible theme selection~~
 - Status post (~~with twitter?~~ github issue?)
 - ~~About page / Index page~~

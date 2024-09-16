@@ -17,7 +17,7 @@ Initially I was doing it in Python, specifically Numpy for the vector math part.
 [^2]: Which comes as a surprise that performance is still important in some sense in later part of this project.
 
 For this post I will focus on how to build the most basic parts so that we have a decent initial result: a spinning cube like this:
-![cosmo_basic](/static/image/cosmo_basic.gif "Spinning Cube™;;50")
+![cosmo_basic](/static/image/cosmo_basic.gif "Spinning Cube™;;40")
 
 #### Terminal Rendering
 
