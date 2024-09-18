@@ -63,9 +63,9 @@ var cfgs pb.AConfigs
 cfgsInterface := configsPb(cfgs)
 
 // you will get compiler error
-./prog.go:52:12: cannot convert cfgs (variable of type pb.AConfigs) to type configsPb: pb.AConfigs does not implement configsPb (wrong type for method GetConfig)
-		have GetConfig() []*pb.AConfig
-		want GetConfig() []configPb
+// ./prog.go:52:12: cannot convert cfgs (variable of type pb.AConfigs) to type configsPb: pb.AConfigs does not implement configsPb (wrong type for method GetConfig)
+// 		have GetConfig() []*pb.AConfig
+// 		want GetConfig() []configPb
 ```
 
 I tend to believe that interface in Go alone is not able to model this kind of "nested behaviors". So we will have to use generics together with interface as constraints, which is mentioned in the later part of [go official introduction to generics](https://go.dev/doc/tutorial/generics).

@@ -11,12 +11,12 @@ This is a continuation of [the previous post](/blog/post/cosmo:-3D-Graphics-Engi
 
 #### Camera
 
-To see, is to have many light rays collected onto your retina. Here we're doing the opposite (as discussed in the [Ray Tracing]() section last time), determine a set of light rays going out, based on the type of camera we're using.
+To see, is to have many light rays collected onto your retina. Here we're doing the opposite (as discussed in the [Ray Tracing](/blog/post/cosmo:-3D-Graphics-Engine-in-Terminal/#ray_tracing) section last time), determine a set of light rays going out, based on the type of camera we're using.
 - Orthogonal: all light rays are parallel to each other, so that visual scale is not related to how far the objects are from the camera. This is not natural to our eyes, but quite unique taste in video games (e.g. [Monument Valley](https://en.wikipedia.org/wiki/Monument_Valley_(video_game\)), [Tunic](https://en.wikipedia.org/wiki/Tunic_(video_game\))) and cinematography (e.g. movies by [Wes Anderson](https://en.wikipedia.org/wiki/Wes_Anderson))
 - Perspective: All light rays are shooting from [a single point](https://en.wikipedia.org/wiki/Focus_(optics\)). This is closest to our natural experience and result of most medias.
 - Other types like fisheye, 360-degrees etc.
 
-For our basic PoC, we'll implement the orthogonal camera as it's probably the easiest one. To determine such a camera in 3D space, we need a grid of points (pixels on the "film") and a direction. The grid of points can then be further abstracted into the center point of the "film" and the size (width, height) of it. For further simplicity, we fix the camera's direction to be along the negative direction of x-axis[^1]. We will then have something like this:
+For our basic PoC, we'll implement the orthogonal camera as it's probably the easiest one. To determine such a camera in 3D space, we need a grid of points (pixels on the "film") and a direction. The grid of points can then be further abstracted into the center point of the "film" and the size (width, height) of it. For further simplicity, we fix the camera's direction to be along the negative direction of x-axis[^1]. The implementation is something like this:
 
 [^1]: This is quite an over simplification. In formal computer vision study we should use something like a [camera matrix](https://en.wikipedia.org/wiki/Camera_matrix), which takes in a point in space with homogeneous coordinates, and directly computes the corresponding position on the film of the camera.
 
@@ -76,7 +76,7 @@ let triangles: Vec<Triangle> = vec![
 ];
 ```
 
-With the camera, we can update the `Player` to use a `Camera` object to update characters on the screen based on what the camera can see:
+With that, we can make the `Player` object take in `triangles` and a `Camera` object, and update the screen based on what the camera can see:
 
 ```rust
 // ...
@@ -109,20 +109,22 @@ impl Player {
     // other functions ...
 }
 ```
-The logic is pretty simple: for each pixel assume blank at beginning, then go over all the triangles and put a dot when an intersection happens, and early break. This works in our cube case because we only have one object in the scene, so one ray cannot intersect 2 triangles both on the positive side.
+The logic is pretty simple: for each pixel assume blank at beginning, then go over all the triangles and put a dot when an intersection happens, and break early. This works in our cube case because we only have one object in the scene, so one ray cannot intersect 2 triangles both on the positive side[^3].
+
+[^3]: It gets more complicated when you have multiple objects and each object consists of so many triangles. Tune in for next post :)
 
 With what we already have and some additional code in `main.rs` to connect everything together, we can do `cargo run` and get a still frame of this:
 
 ![cosmo_first_cube](/static/image/cosmo_first_cube.png "Initial Result;;40")
 
-This is not that exciting and a bit stupid, but this is clearly correct and does look like the shadow of a standing cube. You can get it from [this version](https://github.com/KevinXuxuxu/cosmo/tree/a1bacf53311124e931c9e61247c7430f48fe17f0/rust_lite) of the code, and feel free to play with the camera parameters to check the effects.
+This is not that exciting and a bit stupid, but this is clearly correct and does look like the shadow of a standing cube. You can get it from [this brach](https://github.com/KevinXuxuxu/cosmo/tree/lite_v1/rust_lite) of the code, and feel free to play with the camera parameters to check the effects.
 
 #### Lighting
 
 To improve our result, we need to add lighting to the scene. There're a few common types of lighting used in 3D graphics:
-- Ambient light: inherent light effect of objects when there isn't external light source. The dot we give in the previous code can be considered as something like that.
+- Ambient light: inherent light effect of objects when there isn't external light source. The dot we used in the previous code can be considered as some sort of ambient light.
 - Directional light: light of same intensity shining in parallel along one direction, like sun light.
-- Point light: light shining from a point in 3D space, intensity is usually modeled as decaying proportional to the square of distance reversed ([the Inverse-square law](https://en.wikipedia.org/wiki/Inverse-square_law)).
+- Point light: light shining from a point in 3D space, intensity is usually modeled [the inverse-square law](https://en.wikipedia.org/wiki/Inverse-square_law).
 
 For simplicity we will implement directional light for our PoC, but point light is also simple enough and is left as a homework :)
 
@@ -154,16 +156,17 @@ Only one function `get_luminance` is needed for the `Light` object, where we use
 With this, we can pass a `Light` object into player, and properly use it when updating each pixel with an intersection to any triangle:
 
 ```rust
+// Replacing self.a[i][j] = '.';
 self.a[i][j] = self.light.get_luminance(t.n);
 ```
 
-With [this version](https://github.com/KevinXuxuxu/cosmo/tree/da54d4fad446893a6fff4b5326b0a5d359bb158c/rust_lite) of the code, we can get a render that makes more sense:
+With [this branch](https://github.com/KevinXuxuxu/cosmo/tree/lite_v2/rust_lite) of the code, we can get a render that makes more sense:
 
 ![cosmo_light_cube](/static/image/cosmo_light_cube.png "Hey, it looks pretty cubical if you take the glasses off!;;40")
 
 #### Rotation
 
-Now that we have a correctly rendered cube, the last step is to make it move. Generally we use a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix#General_3D_rotations) based on the axis and radian of the desired rotation, but for simplicity we will just use the simple matrix which rotates around $z$ axis:
+Now that we have a correctly rendered cube, the last step is to make it move. Generally a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix#General_3D_rotations) is used based on the axis and radian of the desired rotation, but for simplicity we will just use the simple matrix which rotates around $z$ axis:
 
 $$
 R_z(\alpha) = \begin{pmatrix}
@@ -176,17 +179,17 @@ $$
 For any point $P = (x, y, z)^T$, the new point $P'$ after rotation can be found by simply doing matrix multiplication:
 
 $$
-P' = R_z(\alpha)P
+P' = R_z(\alpha) P
 $$
 
-With the theory, we add a util function `rotate_z` which takes in the radian rotated per second, the time taken for each frame (`dt`) and a `Vec3` point to be rotated in-place.
+With the theory, we add a util function `rotate_z` which takes in the radian rotated per second, the time taken for each frame (`dt`) and a `Vec3` point to be processed in-place.
 
 ```rust
 pub fn rotate_z(rad: f32, dt: f32, p: &mut Vec3) {
     let a = rad * dt;
     *p = Vec3::new(
-        p.x*a.cos() - p.y*a.sin(),
-        p.x*a.sin() + p.y*a.cos(),
+        p.x * a.cos() - p.y * a.sin(),
+        p.x * a.sin() + p.y * a.cos(),
         p.z
     );
 }
@@ -225,7 +228,7 @@ impl Player {
 }
 ```
 
-With [this version](https://github.com/KevinXuxuxu/cosmo/tree/36de3a3e640c6b0f60edcfeb637846e3b7c67191/rust_lite), we finally achieved our goal: a spinning cube. Feel free to play around the camera/light parameter, implement other types of camera/lighting/objects. It's really fun and rewarding.
+With [this version](https://github.com/KevinXuxuxu/cosmo/tree/lite_v3/rust_lite), we finally achieved our goal: a spinning cube. Feel free to play around the camera/light parameter, implement other types of camera/lighting/objects. It's really fun and rewarding.
 
 ![cosmo_basic](/static/image/cosmo_basic.gif "Spinning Cube™;;40")
 
