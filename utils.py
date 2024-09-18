@@ -64,7 +64,7 @@ class HighlightRenderer(mistune.HTMLRenderer):
         url = mistune.escape_url(url)
         alt = mistune.escape(alt)
         caption_html = f'<em class="text-gray">{mistune.escape(caption)}</em>' if caption else ''
-        return f'<p style="text-align: center"><img src="{url}" alt="{alt}" style="width: {percent_width}%"/><br>{caption_html}</p>'
+        return f'<p style="text-align: center"><img class="my-resp-img" src="{url}" alt="{alt}" style="width: {percent_width}%"/><br>{caption_html}</p>'
 
 
 def get_md_factory() -> 'mistune.markdown.Markdown':
