@@ -1,4 +1,7 @@
 {% extends "layout.html" %}
+{% block extraheader %}
+    <title>category: {{ category }}</title>
+{% endblock %}
 {% block head %}
     <figure class="avatar avatar-sm">
         <img src="/static/favicon_io/android-chrome-192x192.png" alt="avatar">
