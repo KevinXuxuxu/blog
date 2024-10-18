@@ -12,29 +12,44 @@ async function readScene(id) {
         console.error('Error fetching or reading the text file:', error);
     }
 }
+
+function startCosmo(displayEle, player) {
+    const intId = setInterval(() => {
+        player.update();
+        displayEle.textContent = player.get_a().join('\n');
+    }, 1000.0 / 24.0);
+    displayEle.setAttribute('intId', intId);
+}
+
 async function prepareCosmo(displayEle) {
     let [id, w, h] = displayEle.id.split('-');
     const scene = await readScene(id);
     const player = PlayerWASM.new(scene, 24, parseInt(w), parseInt(h), false, false, false);
-    player.update();
-    displayEle.textContent = player.get_a().join('\n');
+    startCosmo(displayEle, player);
     displayEle.addEventListener('click', () => {
         if (displayEle.hasAttribute('intId')) {
             clearInterval(displayEle.getAttribute('intId'));
             displayEle.removeAttribute('intId');
         } else {
-            const intId = setInterval(() => {
-                player.update();
-                displayEle.textContent = player.get_a().join('\n');
-            }, 1000.0 / 24.0);
-            displayEle.setAttribute('intId', intId);
+            startCosmo(displayEle, player);
         }
     });
 }
 
-window.onload = function () {
+function loadCosmo() {
+    if (window.cosmoLoaded) {
+        return;
+    }
+    console.log('loading cosmo...')
     let displayEles = document.getElementsByClassName('cosmo-display');
     for (let i = 0; i < displayEles.length; ++i) {
         prepareCosmo(displayEles[i]);
     }
-};
+    window.cosmoLoaded = true;
+}
+
+window.cosmoLoaded = false;
+window.addEventListener('load', loadCosmo);
+if (window.loaded) {
+    loadCosmo();
+}

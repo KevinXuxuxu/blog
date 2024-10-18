@@ -5,7 +5,7 @@ tags: ["Computer Graphics", "Ray Tracing", "Rust", "Terminal"]
 category: tech
 ---
 
-<pre><code class="cosmo-display" id="panorama-150-30"></code></pre>
+<pre><code class="cosmo-display" id="panorama-150-30">loading failed, try refresh UwU</code></pre>
 
 The idea came from [an amazing work](https://www.a1k0n.net/2011/07/20/donut-math.html) by [Andy Sloane](https://www.a1k0n.net/)[^1] where he wrote a compact C code (shaped like a flat donut) that renders a spinning donut in terminal. Multiple people did videos about it and it was a blast.
 
@@ -19,7 +19,7 @@ Initially I was doing it in Python, specifically Numpy for the vector math part.
 
 For this post I will focus on how to build the most basic parts so that we have a decent initial result: a spinning cube like this:
 
-<pre><code class="cosmo-display" id="cube-60-30"></code></pre>
+<pre><code class="cosmo-display" id="cube-60-30">loading failed, try refresh UwU</code></pre>
 
 #### Terminal Rendering
 
