@@ -1,0 +1,25 @@
+.cosmo-display {
+    line-height: 1.2;
+    text-align: center;
+    font-size: 40%;
+    padding: 5px;
+    cursor: pointer;
+    background: #232323;
+    color: rgb(213, 213, 213);
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+}
+
+[data-theme="dark"] .cosmo-display {
+    line-height: 1.2;
+    text-align: center;
+    font-size: 40%;
+    padding: 5px;
+    cursor: pointer;
+    background: #232323;
+    color: rgb(213, 213, 213);
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+}

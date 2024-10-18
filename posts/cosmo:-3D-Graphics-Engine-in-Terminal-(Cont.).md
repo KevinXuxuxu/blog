@@ -230,7 +230,7 @@ impl Player {
 
 With [this version](https://github.com/KevinXuxuxu/cosmo/tree/lite_v3/rust_lite), we finally achieved our goal: a spinning cube. Feel free to play around the camera/light parameter, implement other types of camera/lighting/objects. It's really fun and rewarding.
 
-![cosmo_basic](/static/image/cosmo_basic.gif "Spinning Cube™;;40")
+<pre><code class="cosmo-display" id="cube-60-30"></code></pre>
 
 #### Afterword
 

@@ -4,7 +4,8 @@ date: 2024-08-07 04:26:15
 tags: ["Computer Graphics", "Ray Tracing", "Rust", "Terminal"]
 category: tech
 ---
-![cosmo_panorama](/static/image/cosmo_panorama.gif "3D objects rendered in 60FPS")
+
+<pre><code class="cosmo-display" id="panorama-150-30"></code></pre>
 
 The idea came from [an amazing work](https://www.a1k0n.net/2011/07/20/donut-math.html) by [Andy Sloane](https://www.a1k0n.net/)[^1] where he wrote a compact C code (shaped like a flat donut) that renders a spinning donut in terminal. Multiple people did videos about it and it was a blast.
 
@@ -17,7 +18,8 @@ Initially I was doing it in Python, specifically Numpy for the vector math part.
 [^2]: Which comes as a surprise that performance is still important in some sense in later part of this project.
 
 For this post I will focus on how to build the most basic parts so that we have a decent initial result: a spinning cube like this:
-![cosmo_basic](/static/image/cosmo_basic.gif "Spinning Cube™;;40")
+
+<pre><code class="cosmo-display" id="cube-60-30"></code></pre>
 
 #### Terminal Rendering
 
