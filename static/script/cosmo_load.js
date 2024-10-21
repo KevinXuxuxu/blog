@@ -1,16 +1,37 @@
-import init, { PlayerWASM } from '/static/wasm/cosmo/cosmo.js';
+import init, { PlayerWASM } from '/static/wasm/cosmo_stl/cosmo.js';
 await init();
-async function readScene(id) {
+async function readScene(name) {
     try {
-        const response = await fetch('/static/cosmo_scenes/' + id + '.cos');
+        const response = await fetch('/static/cosmo_scenes/' + name + '.cos');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const text = await response.text();
         return text.split('\n').map(line => line.trim());
     } catch (error) {
-        console.error('Error fetching or reading the text file:', error);
+        console.error('Error fetching or reading the scene file (.cos):', error);
     }
+}
+
+async function readSTL(name) {
+    try {
+        const response = await fetch('/static/cosmo_scenes/' + name + '.stl');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const arrayBuffer = await response.arrayBuffer();
+        return new Uint8Array(arrayBuffer);
+    } catch (error) {
+        console.error('Error fetching or reading the STL file:', error);
+    }
+}
+
+async function readSTLs(names) {
+    var result = [];
+    for (const name of names) {
+        result.push(await readSTL(name));
+    }
+    return result;
 }
 
 function startCosmo(displayEle, player) {
@@ -22,9 +43,17 @@ function startCosmo(displayEle, player) {
 }
 
 async function prepareCosmo(displayEle) {
-    let [id, w, h] = displayEle.id.split('-');
-    const scene = await readScene(id);
-    const player = PlayerWASM.new(scene, 24, parseInt(w), parseInt(h), false, false, false);
+    const sceneName = displayEle.getAttribute('scene');
+    const STLNames = displayEle.hasAttribute('stl-names') ?
+        displayEle.getAttribute('stl-names').split(',') : [];
+    const [w, h] = displayEle.getAttribute('dimension').split(',');
+    const fr = displayEle.getAttribute('framerate');
+    const enableAABB = displayEle.getAttribute('enable-aabb') === 'true';
+    const disableShade = displayEle.getAttribute('disable-shade') === 'true';
+
+    const scene = await readScene(sceneName);
+    const STLData = await readSTLs(STLNames);
+    const player = PlayerWASM.new(scene, parseInt(fr), parseInt(w), parseInt(h), enableAABB, disableShade, STLNames, STLData);
     startCosmo(displayEle, player);
     displayEle.addEventListener('click', () => {
         if (displayEle.hasAttribute('intId')) {

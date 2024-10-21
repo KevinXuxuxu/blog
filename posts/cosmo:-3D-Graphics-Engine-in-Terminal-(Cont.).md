@@ -7,6 +7,8 @@ category: tech
 
 ![cosmo_david](/static/image/cosmo_david.gif "David Head Rendered in 24FPS;;50")
 
+<pre><code class="cosmo-display" scene="david" stl-names="david_oriented" dimension="120,60" framerate="10" enable-aabb=true disable-shade=true>loading failed, try refresh UwU</code></pre>
+
 This is a continuation of [the previous post](/blog/post/cosmo:-3D-Graphics-Engine-in-Terminal/), where we talked about my side project [cosmo](https://github.com/KevinXuxuxu/cosmo) and partly about details to implement a basic 3D graphics engine in terminal. In this post we're going to cover the rest parts of implementing a basic PoC (*Spinning Cube™*).
 
 #### Camera
@@ -230,7 +232,7 @@ impl Player {
 
 With [this version](https://github.com/KevinXuxuxu/cosmo/tree/lite_v3/rust_lite), we finally achieved our goal: a spinning cube. Feel free to play around the camera/light parameter, implement other types of camera/lighting/objects. It's really fun and rewarding.
 
-<pre><code class="cosmo-display" id="cube-60-30">loading failed, try refresh UwU</code></pre>
+<pre><code class="cosmo-display" scene="cube" dimension="60,30" framerate="24" enable-aabb=false disable-shade=false>loading failed, try refresh UwU</code></pre>
 
 #### Afterword
 
