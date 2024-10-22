@@ -1,4 +1,4 @@
-import init, { PlayerWASM } from '/static/wasm/cosmo_stl/cosmo.js';
+import init, { PlayerWASM } from '/static/wasm/cosmo/cosmo.js';
 await init();
 async function readScene(name) {
     try {

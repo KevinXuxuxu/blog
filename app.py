@@ -9,6 +9,11 @@ app = Flask(__name__)
 app.config['FREEZER_DESTINATION_IGNORE'] = ['.git*', 'online_tool']
 app.register_blueprint(sub_app, url_prefix='/opencoder')
 
+@app.after_request
+def add_coop_coep_headers(response):
+    response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
+    response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
+    return response
 
 @app.route("/")
 def index():

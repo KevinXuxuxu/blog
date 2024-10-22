@@ -10,7 +10,7 @@ from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
 from typing import List, Tuple
 
-ParsedPost = namedtuple('ParsedPost', ['title', 'path_title', 'date', 'tags', 'category', 'content'])
+ParsedPost = namedtuple('ParsedPost', ['title', 'path_title', 'date', 'tags', 'category', 'content', 'enable_cosmo'])
 _all_post_metadata_cache = None
 _post_metadata_template = '''---
 title: {title}
@@ -116,7 +116,7 @@ def parse_attribute(line: str) -> Tuple[str, str]:
 def parse_post_metadata(path_title: str, md: str) -> ParsedPost:
     parts = md.split('---\n')
     metadata_str, content = parts[1], '---\n'.join(parts[2:])
-    metadata = {'content': content, 'path_title': path_title}
+    metadata = {'content': content, 'path_title': path_title, 'enable_cosmo': False}
     for line in metadata_str.strip().split('\n'):
         key, value = parse_attribute(line)
         if key == 'tags':

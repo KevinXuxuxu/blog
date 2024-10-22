@@ -19,6 +19,10 @@
           display: inline-block;
         }
     </style>
+    {% if post.enable_cosmo %}
+        <link rel="stylesheet" href="/static/style/cosmo.css">
+        <script type="module" src="/static/script/cosmo_load.js"></script>
+    {% endif %}
 {% endblock %}
 {% block head %}
     <figure class="avatar avatar-sm">
