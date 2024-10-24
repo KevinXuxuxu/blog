@@ -27,3 +27,4 @@ if __name__ == '__main__':
     freezer.freeze()
     # Copy CNAME file to the build dir.
     copyfile("CNAME", "build/CNAME")
+    copyfile("enable_threads.js", "build/enable_threads.js")

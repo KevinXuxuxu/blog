@@ -1,0 +1,15 @@
+{
+  "name": "cosmo",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "cosmo_bg.wasm",
+    "cosmo.js",
+    "cosmo.d.ts"
+  ],
+  "main": "cosmo.js",
+  "types": "cosmo.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
