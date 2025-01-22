@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Response
+import feedgenerator
+from datetime import datetime
 
 from utils import *
 
@@ -50,3 +52,23 @@ def post(path_title):
     md_factory = get_md_factory()
     html = md_factory(parsed_post.content)
     return render_template("post.html", post=parsed_post, rendered_content=html)
+
+
+@app.route("/feed.xml")
+def rss_posts():
+    feed = feedgenerator.Rss201rev2Feed(
+        title="fzxu.me",
+        link="https://site.fzxu.me/",
+        description="Hey there, I'm fzxu. I (am hoping to) write about coding, system design and all other technical stuffs that I know (or would like to explore) here. Any comments/discussions are greatly welcomed.",
+        language="en",
+    )
+    for post in get_all_posts_with_metadata():
+        feed.add_item(
+            title=post.title,
+            link=f"https://site.fzxu.me/blog/post/{post.path_title}/",
+            description=f"Tags: {', '.join(post.tags)}<br>Category: {post.category}",
+            pubdate=datetime.strptime(post.date, "%Y-%m-%d %H:%M:%S"),
+            unique_id=post.path_title,
+        )
+    xml = feed.writeString("utf-8")
+    return Response(xml, mimetype="application/xml")
