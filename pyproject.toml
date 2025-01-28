@@ -11,4 +11,6 @@ dependencies = [
     "frozen-flask>=1.0.2",
     "mistune==3.0.2",
     "pygments==2.10.0",
+    "pytest>=8.3.4",
+    "pytest-mock>=3.14.0",
 ]

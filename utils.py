@@ -91,6 +91,8 @@ def get_all_posts_with_metadata() -> List[ParsedPost]:
     if _all_post_metadata_cache is None:
         _all_post_metadata_cache = []
         for path in os.listdir("posts"):
+            if not path.endswith(".md"):
+                continue
             with open("posts/" + path, "r") as f:
                 _all_post_metadata_cache.append(
                     parse_post_metadata(path[:-3], f.read())
