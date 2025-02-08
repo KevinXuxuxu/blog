@@ -1,0 +1,27 @@
+svg.nav-icon {
+    vertical-align:middle;
+    margin-bottom:4px;
+    margin-right: 3px;
+    color: #5755d9;
+}
+svg.nav-icon:hover {
+    vertical-align:middle;
+    margin-bottom:4px;
+    margin-right: 3px;
+    color: #807fe2;
+}
+[data-theme="dark"] svg.nav-icon {
+    vertical-align:middle;
+    margin-bottom:4px;
+    margin-right: 3px;
+    color: #807fe2;
+}
+[data-theme="dark"] svg.nav-icon:hover {
+    vertical-align:middle;
+    margin-bottom:4px;
+    margin-right: 3px;
+    color: #babaf8;
+}
+svg path {
+    fill: currentColor;
+}
