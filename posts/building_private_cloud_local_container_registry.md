@@ -20,6 +20,7 @@ At the beginning I imagined it to be a pretty standard web service deployment, b
 - Obviously it is going to need persistent local storage support, so we'll need to utilize the setup we covered in [Storage Solution](/blog/post/building_private_cloud_storage_solution/#implementation), and we'll cover that in a bit.
 - Most container registry client prefers SSL connection to the registry[^1], so we need to properly handle that.
 - Do we need authentication support? Some solution might force that as a security feature.
+
 [^1]: This is a conclusion from a tremendous amount of trial and failure 🥹.
 
 Long story short, here's the overall k8s deployment config:
@@ -119,9 +120,11 @@ A few things to note:
 
 Since we're creating and using "self-signed" SSL certificates, we need to "trust" the cert from where you're trying to access it. The way of doing that varies by the OS/Distro you are running on your nodes.
 - To access registry from docker client, add certs to `/etc/docker/certs.d/cr.local.example.com:5000/`[^3]
-- To access registry from k8s cluster, the certs need to be trusted by from the OS on each node. For Debian based OS (Ubuntu, RPiOS), copy `.crt` file to `/usr/local/share/ca-certificates/`, and run `sudo update-ca-certificates` to make it effective.
+- To access registry from k8s cluster, the certs need to be trusted by from the OS on each node. For Debian based OS (Ubuntu, RPiOS), copy `.crt` file to `/usr/local/share/ca-certificates/`, run `sudo update-ca-certificates` and **restart the node**[^4] to make it effective.
 
-[^3]: In my case I need to access from docker on my MacOS because I do all my work there, including building and managing images. To do that you should be able to open the `.crt` file using the Keychain Access program and trust it on OS level.
+[^3]: In my case I need to access from docker on my MacOS because I do all my work there, including building and managing images. To do that you should be able to open the `.crt` file using the Keychain Access program and trust it on OS level. *(Updated 2025-02-10)* The certificate trusting for different kind of docker daemons varies. Since I switched to [Colima](https://github.com/abiosoft/colima), the new cert should be put into `~/.docker/certs.d/cr.local.example.com/`, and a restart of the docker daemon (which ever you're using) is most likely needed as well.
+
+[^4]: *(Updated 2025-02-10)* The k3s server and agent need restarting to be aware of the changed certificate trust. Took stupid me a painful 1.5h because of this missed step.
 
 Finally, we need to add `cr.local.example.com` to our local DNS server, so that it's accessible not only from within the cluster, but also within your home subnet. As we introduced in [Local DNS](/blog/post/building_private_cloud_local_dns/#the_corefile), use the following command to edit CoreDNS config file and add `cr.local.example.com` as a new host in `NodeHosts` block, and point to any node IP.
 ```shell
