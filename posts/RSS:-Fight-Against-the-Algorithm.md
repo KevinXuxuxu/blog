@@ -3,6 +3,7 @@ title: RSS: Fight Against the Algorithm
 date: 2025-02-08 00:25:40
 tags: ["RSS", "Web Crawling", "Tor"]
 category: tech
+thumbnail: /static/image/xkcd_386.png
 ---
 ![xkcd.com/386](/static/image/xkcd_386.png "xkcd.com/386 Duty Calls;;40")
 

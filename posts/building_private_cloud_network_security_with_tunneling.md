@@ -3,6 +3,7 @@ title: Building Private Cloud: Network Security with Tunneling
 date: 2024-05-19 04:20:09
 tags: ["Private Cloud", "Cloudflare", "Reverse Proxy", "Tunnel", "Network"]
 category: tech
+thumbnail: /static/image/cf_tunnel.png
 ---
 As mentioned in [a previous post](/blog/post/building_private_cloud_hosting_web_service/), I'm using Traefik to manage incoming public traffic to my private cloud. To achieve that, the public IP of my home internet will need to be exposed and it's sort of dangerous no matter how secure my system is.
 

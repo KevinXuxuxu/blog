@@ -3,6 +3,7 @@ title: Dark Mode Support
 date: 2024-03-07 07:33:14
 tags: ["frontend", "CSS", "Javascript", "npm"]
 category: tech
+thumbnail: /static/image/dark_mode_thumbnail.png
 ---
 Recently I have been doing quite some frontend development involving improvement of my [blog](https://github.com/KevinXuxuxu/blog) framework as well as some new side projects (specifically [OpenCoder](https://github.com/KevinXuxuxu/opencoder) but I'll save it for a separate post). As a system/infra engineer I have always had a mixed feeling about frontend developing: they're both fascinating and boring, both super exciting when you make it right, and mindlessly dull when you fail. So here's a short post about my recent experience with too much detail that no one wants to read about.
 

@@ -3,7 +3,10 @@ title: Building Private Cloud with Turing Pi 2
 date: 2024-01-09 18:55:48
 tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Private Cloud"]
 category: tech
+thumbnail: /static/image/turingpi_official.webp
 ---
+
+![turingpi_official](/static/image/turingpi_official.webp "Turing Pi 2 Board;;70")
 
 I was one of the backers when [Turing Pi 2](https://turingpi.com/product/turing-pi-2/) was on kickstarter, and received the stuff around April 2023. But at that time there wasn't any available [rpi cm4](https://www.raspberrypi.com/products/compute-module-4/) for me to buy, so the plan was postponed util just last Thanksgiving. I got 4 rpi cm4 4G lite version, and finally started to build a private cloud out of these.
 

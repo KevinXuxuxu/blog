@@ -3,6 +3,7 @@ title: Ramp Up on NanoGPT
 date: 2023-02-04 20:58:32
 tags: ["GPT", "LLM", "nanoGPT", "ML", "AI"]
 category: tech
+thumbnail: /static/image/nanogpt.jpg
 ---
 
 During Thanksgiving last year, I finally convinced myself to buy compartments (while the sales were still on) to utilize my NVIDIA RTX 3070 graphics card and assemble a new PC. I did it the first time in 2021 when I was still in Beijing, so this time it went pretty smoothly. Although the main motivation is to play PC games (Got all achievements in Elden Ring soon after :), I do hope to use the graphics card to do some deep learning experiments. So after [Andrej Karpathy](https://karpathy.ai/) released [nanoGPT](https://github.com/karpathy/nanoGPT) and the [Neural Networks: Zero to Hero](https://karpathy.ai/zero-to-hero.html) online course, I know it's a perfect project to start with.

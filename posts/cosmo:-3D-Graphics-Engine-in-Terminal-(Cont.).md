@@ -4,6 +4,7 @@ date: 2024-09-14 21:49:44
 tags: ["Computer Graphics", "Ray Tracing", "Rust", "Terminal"]
 category: tech
 enable_cosmo: true
+thumbnail: /static/image/cosmo_david.gif
 ---
 ![cosmo_david](/static/image/cosmo_david.gif "David Head Rendered in 24FPS;;50")
 <!-- <pre><code class="cosmo-display" scene="david" stl-names="david_oriented" dimension="120,60" framerate="24" enable-aabb=true disable-shade=true>loading failed, try refresh UwU</code></pre> -->

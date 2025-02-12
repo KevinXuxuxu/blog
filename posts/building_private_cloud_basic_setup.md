@@ -3,6 +3,7 @@ title: Building Private Cloud: Basic Setup
 date: 2024-01-29 06:57:47
 tags: ["k8s", "k3s", "infra", "Turing Pi", "Raspberry Pi", "Private Cloud"]
 category: tech
+thumbnail: /static/image/private_cloud.jpg
 ---
 
 As mentioned in [a previous post](/blog/post/building_private_cloud_with_turing_pi/), I have acquired enough parts that's needed for me to start working on building a private cloud (or homelab). This series of blog posts is to record my experience of building this hardware/software system, and hopefully serve as a guide or pointer to anyone trying to do similar things.

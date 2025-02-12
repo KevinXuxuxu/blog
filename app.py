@@ -63,10 +63,15 @@ def rss_posts():
         language="en",
     )
     for post in get_all_posts_with_metadata():
+        thumbnail = (
+            f'<a href="https://site.fzxu.me/blog/post/{post.path_title}/"><img src="https://site.fzxu.me{post.thumbnail}" alt="{post.title}" /></a>'
+            if post.thumbnail
+            else ""
+        )
         feed.add_item(
             title=post.title,
             link=f"https://site.fzxu.me/blog/post/{post.path_title}/",
-            description=f"Tags: {', '.join(post.tags)}<br>Category: {post.category}",
+            description=f"{thumbnail}<br>Tags: {', '.join(post.tags)}<br>Category: {post.category}",
             pubdate=datetime.strptime(post.date, "%Y-%m-%d %H:%M:%S"),
             unique_id=post.path_title,
         )

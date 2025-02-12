@@ -4,6 +4,7 @@ date: 2024-08-07 04:26:15
 tags: ["Computer Graphics", "Ray Tracing", "Rust", "Terminal"]
 category: tech
 enable_cosmo: true
+thumbnail: /static/image/cosmo_panorama.gif
 ---
 
 <pre><code class="cosmo-display" scene="panorama" dimension="150,30" framerate="24" enable-aabb=false disable-shade=false>loading failed, try refresh UwU</code></pre>

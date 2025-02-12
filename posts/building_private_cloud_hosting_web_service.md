@@ -3,6 +3,7 @@ title: Building Private Cloud: Hosting Web Service
 date: 2024-02-02 05:34:15
 tags: ["k8s", "Traefik", "Network", "Private Cloud", "HTTPS"]
 category: tech
+thumbnail: /static/image/traefik_arch_overview.webp
 ---
 
 In my [previous post](/blog/post/building_private_cloud_basic_setup/), the basic setup of a private cloud with [Turing Pi 2](https://turingpi.com/) board and rpi cm4 is presented. Now we can talk about how to start using the cluster for some simple web services.

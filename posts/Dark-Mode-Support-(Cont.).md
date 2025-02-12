@@ -3,6 +3,7 @@ title: Dark Mode Support (Cont.)
 date: 2024-08-25 20:32:16
 tags: ["frontend", "CSS", "Javascript", "Sass"]
 category: tech
+thumbnail: /static/image/state_machine.png
 ---
 
 My previous version of [dark mode support](/blog/post/dark_mode_support/) is not very satisfactory: the color scheme is not very crafted, refreshing page under dark mode gives a blink of light color which is annoying, and switching between two CSS files is just pure ugly. With a bit more research, I realized that the standard way of supporting multiple "themes" in frontend is usually done by switching between `data-theme` on the document, with different styles defined separately in a single CSS file[^2]. Something like this:

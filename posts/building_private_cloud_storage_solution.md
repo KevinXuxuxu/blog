@@ -3,6 +3,7 @@ title: Building Private Cloud: Storage Solution
 date: 2024-02-24 02:13:53
 tags: ["Private Cloud", "k8s", "Storage", "NAS", "NFS"]
 category: tech
+thumbnail: /static/image/fileio_bench.png
 ---
 
 In this post we're going to switch gear and talk about storage solutions, which is also an important part of any cloud deployment. We'll cover some general choices for private cloud, talk about hardware limitations in my setup, and go over a few storage solutions I attempted and either failed or succeeded.

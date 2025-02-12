@@ -3,6 +3,7 @@ title: Self-hosting VPN
 date: 2024-07-21 20:46:52
 tags: ["Private Cloud", "VPN", "V2Ray", "GFW", "Network"]
 category: tech
+thumbnail: /static/image/current_v2ray.png
 ---
 
 > TL;DR This blog is mainly talking about self-hosting proxy to visit blocked sites and services by GFW from mainland China, **not** talking about general network proxy and VPN concept. It's also mostly focused on overall technology and server side setups. For client side, please check [footnote 3](/blog/post/Self-hosting-VPN/#fn-3) for more information.
