@@ -1,33 +1,33 @@
 {% extends "layout.html" %}
 {% block extraheader %}
-    <title>fzxu</title>
+<title>fzxu</title>
 {% endblock %}
 {% block head %}
-    <h1 class="heading-index">
-        <figure class="avatar avatar-xl">
-            <a href="https://en.wikipedia.org/wiki/Magnificent_frigatebird">
-                <img src="/static/favicon_io/android-chrome-512x512.png" alt="avatar">
-            </a>
-        </figure>&nbsp;&nbsp;
-        fzxu's Blog
-    </h1>
+<h1 class="heading-index">
+    <figure class="avatar avatar-xl">
+        <a href="https://en.wikipedia.org/wiki/Magnificent_frigatebird">
+            <img src="/static/favicon_io/android-chrome-512x512.png" alt="avatar">
+        </a>
+    </figure>&nbsp;&nbsp;
+    fzxu's Blog
+</h1>
 {% endblock %}
 {% block body %}
-    {% autoescape false %}
-    {{ rendered_content }}
-    {% endautoescape %}
-    <ul>
-        {% for p in posts %}
-            <li>
-                <a href="/blog/post/{{ p.path_title }}/">{{ p.title }}</a>
-                <small class="text-gray">{{ p.date.split(' ')[0] }}</small>
-            </li>
-        {% endfor %}
-    </ul>
+{% autoescape false %}
+{{ rendered_content }}
+{% endautoescape %}
+<ul>
+    {% for p in posts %}
+    <li>
+        <a href="/blog/post/{{ p.path_title }}/">{{ p.title }}</a>
+        <small class="text-gray">{{ p.date.split(' ')[0] }}</small>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
 {% block sidebar %}
-    <h4>Tags</h4>
-    {% for t in tags %}
-        <span class="chip bg-gray"><a href="/blog/tag/{{ t }}/" class="text-dark">{{ t }}</a></span>
-    {% endfor %}
+<h4>Tags</h4>
+{% for t in tags %}
+<span class="chip bg-gray"><a href="/blog/tag/{{ t }}/" class="text-dark">{{ t }}</a></span>
+{% endfor %}
 {% endblock %}

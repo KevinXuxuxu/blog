@@ -1,22 +1,22 @@
 {% extends "layout.html" %}
 {% block extraheader %}
-    <title>tag: {{ tag }}</title>
+<title>tag: {{ tag }}</title>
 {% endblock %}
 {% block head %}
-    <figure class="avatar avatar-sm">
-        <img src="/static/favicon_io/android-chrome-192x192.png" alt="avatar">
-    </figure>&nbsp;
-    <a href="/">fzxu's Blog</a>
-    <h1 class="heading-index">{{ tag }}</h1>
+<figure class="avatar avatar-sm">
+    <img src="/static/favicon_io/android-chrome-192x192.png" alt="avatar">
+</figure>&nbsp;
+<a href="/">fzxu's Blog</a>
+<h1 class="heading-index">{{ tag }}</h1>
 {% endblock %}
 {% block body %}
 <p>Here is a list of my blogs with tag <span class="chip bg-gray text-dark">{{ tag }}</span></p>
 <ul>
     {% for p in posts %}
-        <li>
-            <a href="/blog/post/{{ p.path_title }}/">{{ p.title }}</a>
-            <small class="text-gray">{{ p.date.split(' ')[0] }}</small>
-        </li>
+    <li>
+        <a href="/blog/post/{{ p.path_title }}/">{{ p.title }}</a>
+        <small class="text-gray">{{ p.date.split(' ')[0] }}</small>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}

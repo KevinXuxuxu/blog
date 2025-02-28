@@ -1,55 +1,55 @@
 {% extends "layout.html" %}
 {% block extraheader %}
-    <title>{{ post.title }}</title>
+<title>{{ post.title }}</title>
 
-    <style>
-        /* Initially hide the element */
-        .hidden {
-          display: none;
-        }
-        
-        /* Show the element when it's hovered over */
-        h3:hover .hidden {
-          display: inline-block;
-        }
-        h4:hover .hidden {
-          display: inline-block;
-        }
-        h5:hover .hidden {
-          display: inline-block;
-        }
-    </style>
-    {% if post.enable_cosmo %}
-        <link rel="stylesheet" href="/static/style/cosmo.css">
-        <script type="module" src="/static/script/cosmo_load.js"></script>
-    {% endif %}
+<style>
+    /* Initially hide the element */
+    .hidden {
+        display: none;
+    }
+
+    /* Show the element when it's hovered over */
+    h3:hover .hidden {
+        display: inline-block;
+    }
+
+    h4:hover .hidden {
+        display: inline-block;
+    }
+
+    h5:hover .hidden {
+        display: inline-block;
+    }
+</style>
+{% if post.enable_cosmo %}
+<link rel="stylesheet" href="/static/style/cosmo.css">
+<script type="module" src="/static/script/cosmo_load.js"></script>
+{% endif %}
 {% endblock %}
 {% block head %}
-    <figure class="avatar avatar-sm">
-        <img src="/static/favicon_io/android-chrome-192x192.png" alt="avatar">
-    </figure>&nbsp;
-    <a href="/">fzxu's Blog</a>
-    <h1 class="heading-index">{{ post.title }}</h1>
+<figure class="avatar avatar-sm">
+    <img src="/static/favicon_io/android-chrome-192x192.png" alt="avatar">
+</figure>&nbsp;
+<a href="/">fzxu's Blog</a>
+<h1 class="heading-index">{{ post.title }}</h1>
 
-    <p class="text-gray">
-        <small>{{ post.date | default("") }}</small>
-        <span class="chip bg-secondary"><a href="/blog/category/{{ post.category }}/" class="text-primary">{{ post.category }}</a></span>
-        {% for tag in post.tags %}
-        <span class="chip bg-gray"><a href="/blog/tag/{{ tag }}/" class="text-dark">{{ tag }}</a></span>
-        {% endfor %}
-    </p>
+<p class="text-gray">
+    <small>{{ post.date | default("") }}</small>
+    <span class="chip bg-secondary"><a href="/blog/category/{{ post.category }}/" class="text-primary">{{ post.category
+            }}</a></span>
+    {% for tag in post.tags %}
+    <span class="chip bg-gray"><a href="/blog/tag/{{ tag }}/" class="text-dark">{{ tag }}</a></span>
+    {% endfor %}
+</p>
 {% endblock %}
 {% block body %}
-    {% autoescape false %}
-    {{ rendered_content }}
-    {% endautoescape %}
-    <i><a class="text-secondary" style="font-size: .7rem;" href="https://github.com/KevinXuxuxu/blog/blob/main/posts/{{ post.path_title }}.md">Markdown source</a></i>
+{% autoescape false %}
+{{ rendered_content }}
+{% endautoescape %}
+<i><a class="text-secondary" style="font-size: .7rem;"
+        href="https://github.com/KevinXuxuxu/blog/blob/main/posts/{{ post.path_title }}.md">Markdown source</a></i>
 
-    <script src="https://utteranc.es/client.js"
-            repo="KevinXuxuxu/KevinXuxuxu.github.io"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
+<script src="https://utteranc.es/client.js" repo="KevinXuxuxu/KevinXuxuxu.github.io" issue-term="pathname"
+    theme="github-light" crossorigin="anonymous" async>
     </script>
 {% endblock %}
