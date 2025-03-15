@@ -1,3 +1,6 @@
+const url = window.location.href;
+const no_giscus = !url.slice(20).startsWith('/blog/post/');
+
 function setCookie(cName, cValue, expDays) {
     let date = new Date();
     date.setTime(date.getTime() + (expDays * 24 * 60 * 60 * 1000));
@@ -31,11 +34,15 @@ function change_color_theme(color_theme, init) {
     if (color_theme === 'dark') {
         checkbox.checked = true;
         moon.textContent = '🌖';
-        reload_script(giscus_script, 'catppuccin_macchiato');
+        if (!no_giscus) {
+            reload_script(giscus_script, 'catppuccin_macchiato');
+        }
     } else {
         checkbox.checked = false;
         moon.textContent = '🌒';
-        reload_script(giscus_script, 'catppuccin_latte');
+        if (!no_giscus) {
+            reload_script(giscus_script, 'catppuccin_latte');
+        }
     }
     if (init) {
         checkbox.removeAttribute('disabled');
@@ -81,7 +88,7 @@ function switch_color_theme() {
 document.addEventListener("DOMContentLoaded", function () {
     const element = document.getElementById("color-switch");
     const giscus_script = document.getElementById("giscus");
-    if (element && giscus_script) {
+    if (element && (no_giscus || giscus_script)) {
         init_color_switch();
     }
 });
