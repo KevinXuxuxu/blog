@@ -65,7 +65,7 @@ This immediately brings a problem. I have a [promtail](https://grafana.com/docs/
 exec /usr/bin/sh: exec format error
 ```
 
-This means that the image arch is different from the host arch. Luckily just like Docker Hub, my container registry ([CNCF Distribution Registry](https://distribution.github.io/distribution/)) also supports hosting multi-arch images out-of-the-box. All I need is to find a way to port the official multi-arch image from Docker Hub to my registry.
+This means that the image arch is different from the host arch[^6]. Luckily just like Docker Hub, my container registry ([CNCF Distribution Registry](https://distribution.github.io/distribution/)) also supports hosting multi-arch images out-of-the-box. All I need is to find a way to port the official multi-arch image from Docker Hub to my registry.
 
 Thankfully we have [skopeo](https://github.com/containers/skopeo), a commandline tool for various operations with container images and container image registries. For MacOS just do `brew install skopeo` and it can directly copy image from one registry to another without storing to local file system and with multi-arch natively supported:
 
@@ -76,6 +76,8 @@ skopeo copy --all \
 ```
 
 [^5]: This also happened later when my postgresql backup cronjob choose to run on the macbook.
+
+[^6]: I talked about this issue in [a previous blog](/blog/post/working-with-arm/) many years ago, when I switch to use my current M1 Macbook.
 
 After that, the image on my registry will be multi-arch, and k3s automatically chooses the image version with the correct arch depending on the target host arch, voila!
 
