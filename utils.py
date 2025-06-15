@@ -29,6 +29,7 @@ title: {title}
 date: {time}
 tags: []
 category: default
+thumbnail: 
 ---
 """
 
