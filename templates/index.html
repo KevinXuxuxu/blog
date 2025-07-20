@@ -1,6 +1,28 @@
 {% extends "layout.html" %}
 {% block extraheader %}
-<title>fzxu</title>
+<title>fzxu's Blog - Technical Writing on Coding, System Design & More</title>
+{% endblock %}
+{% block seo_meta %}
+<meta name="description" content="fzxu's technical blog featuring deep dives into infrastructure engineering, self-hosting, and cloud technologies. Learn about building private clouds with Kubernetes, Go programming, system design, DevOps practices, and weird projects like 3D graphics engine in cmd and RSS systems.">
+<meta name="keywords" content="infrastructure engineering, self-hosting, private cloud, kubernetes, go programming, system design, devops, rust, 3d graphics, rss, homelab, arm architecture, turing pi, technical blog, software engineering, fzxu">
+<link rel="canonical" href="https://site.fzxu.me/">
+
+<!-- Open Graph tags -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="fzxu's Blog - Technical Writing on Coding, System Design & More">
+<meta property="og:description" content="fzxu's technical blog featuring deep dives into infrastructure engineering, self-hosting, and cloud technologies. Learn about building private clouds with Kubernetes, Go programming, system design, DevOps practices, and weird projects like 3D graphics engine in cmd and RSS systems.">
+<meta property="og:url" content="https://site.fzxu.me/">
+<meta property="og:site_name" content="fzxu's Blog">
+<meta property="og:image" content="https://site.fzxu.me/static/favicon_io/android-chrome-512x512.png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card tags -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fzxu's Blog - Technical Writing on Coding, System Design & More">
+<meta name="twitter:description" content="fzxu's technical blog featuring deep dives into infrastructure engineering, self-hosting, and cloud technologies. Learn about building private clouds with Kubernetes, Go programming, system design, DevOps practices, and weird projects like 3D graphics engine in cmd and RSS systems.">
+<meta name="twitter:image" content="https://site.fzxu.me/static/favicon_io/android-chrome-512x512.png">
 {% endblock %}
 {% block head %}
 <h1 class="heading-index">

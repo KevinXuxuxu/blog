@@ -77,3 +77,51 @@ def rss_posts():
         )
     xml = feed.writeString("utf-8")
     return Response(xml, mimetype="application/xml")
+
+
+@app.route("/sitemap.xml")
+def sitemap():
+    from urllib.parse import quote
+
+    sitemap_xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://site.fzxu.me/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>"""
+
+    # Add blog posts
+    for post in get_all_posts_with_metadata():
+        sitemap_xml += f"""
+    <url>
+        <loc>https://site.fzxu.me/blog/post/{quote(post.path_title)}/</loc>
+        <lastmod>{datetime.strptime(post.date, "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>"""
+
+    # Add category pages
+    all_categories = {p.category for p in get_all_posts_with_metadata()}
+    for category in all_categories:
+        sitemap_xml += f"""
+    <url>
+        <loc>https://site.fzxu.me/blog/category/{quote(category)}/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>"""
+
+    # Add tag pages
+    all_tags = get_all_tags(get_all_posts_with_metadata())
+    for tag in all_tags:
+        sitemap_xml += f"""
+    <url>
+        <loc>https://site.fzxu.me/blog/tag/{quote(tag)}/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>"""
+
+    sitemap_xml += """
+</urlset>"""
+
+    return Response(sitemap_xml, mimetype="application/xml")

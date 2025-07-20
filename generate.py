@@ -31,3 +31,5 @@ if __name__ == "__main__":
     freezer.freeze()
     # Copy CNAME file to the build dir.
     copyfile("CNAME", "build/CNAME")
+    # Copy robots.txt file to the build dir.
+    copyfile("robots.txt", "build/robots.txt")

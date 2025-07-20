@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block extraheader %}
-<title>{{ post.title }}</title>
+<title>{{ post.title }} - fzxu's Blog</title>
 
 <style>
     /* Initially hide the element */
@@ -25,6 +25,74 @@
 <link rel="stylesheet" href="/static/style/cosmo.css">
 <script type="module" src="/static/script/cosmo_load.js"></script>
 {% endif %}
+{% endblock %}
+{% block seo_meta %}
+<meta name="description" content="{{ post.title }} - A technical blog post by fzxu covering {{ post.category | lower }} topics.">
+<meta name="keywords" content="{{ post.tags | join(', ') }}, {{ post.category | lower }}, fzxu, technical blog">
+<link rel="canonical" href="https://site.fzxu.me/blog/post/{{ post.path_title }}/">
+
+<!-- Open Graph tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ post.title }}">
+<meta property="og:description" content="{{ post.title }} - A technical blog post by fzxu covering {{ post.category | lower }} topics.">
+<meta property="og:url" content="https://site.fzxu.me/blog/post/{{ post.path_title }}/">
+<meta property="og:site_name" content="fzxu's Blog">
+{% if post.thumbnail %}
+<meta property="og:image" content="https://site.fzxu.me{{ post.thumbnail }}">
+{% else %}
+<meta property="og:image" content="https://site.fzxu.me/static/favicon_io/android-chrome-512x512.png">
+{% endif %}
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="fzxu">
+<meta property="article:published_time" content="{{ post.date }}">
+<meta property="article:section" content="{{ post.category }}">
+{% for tag in post.tags %}
+<meta property="article:tag" content="{{ tag }}">
+{% endfor %}
+
+<!-- Twitter Card tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ post.title }}">
+<meta name="twitter:description" content="{{ post.title }} - A technical blog post by fzxu covering {{ post.category | lower }} topics.">
+{% if post.thumbnail %}
+<meta name="twitter:image" content="https://site.fzxu.me{{ post.thumbnail }}">
+{% else %}
+<meta name="twitter:image" content="https://site.fzxu.me/static/favicon_io/android-chrome-512x512.png">
+{% endif %}
+{% endblock %}
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ post.title }}",
+  "author": {
+    "@type": "Person",
+    "name": "fzxu",
+    "url": "https://site.fzxu.me/"
+  },
+  "datePublished": "{{ post.date }}",
+  "dateModified": "{{ post.date }}",
+  "url": "https://site.fzxu.me/blog/post/{{ post.path_title }}/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://site.fzxu.me/blog/post/{{ post.path_title }}/"
+  },
+  {% if post.thumbnail %}
+  "image": "https://site.fzxu.me{{ post.thumbnail }}",
+  {% else %}
+  "image": "https://site.fzxu.me/static/favicon_io/android-chrome-512x512.png",
+  {% endif %}
+  "publisher": {
+    "@type": "Person",
+    "name": "fzxu",
+    "url": "https://site.fzxu.me/"
+  },
+  "keywords": "{{ post.tags | join(', ') }}",
+  "articleSection": "{{ post.category }}",
+  "description": "{{ post.title }} - A technical blog post by fzxu covering {{ post.category | lower }} topics."
+}
+</script>
 {% endblock %}
 {% block head %}
 <figure class="avatar avatar-sm">

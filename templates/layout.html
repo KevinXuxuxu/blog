@@ -2,7 +2,12 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="fzxu">
+    <meta name="robots" content="index, follow">
+    {% block seo_meta %}
+    {% endblock %}
 
     <link id="spectre" rel="stylesheet" href="/static/style/spectre.css">
     <link rel="stylesheet" href="/static/style/pygments_style.css">
@@ -33,6 +38,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon_io/favicon-16x16.png">
     <link rel="manifest" href="/static/favicon_io/site.webmanifest">
+    
+    {% block structured_data %}
+    {% endblock %}
 </head>
 
 <body>
