@@ -33,9 +33,15 @@ thumbnail:
 ---
 """
 
+def wrap_code_in_details(code_block: str, summary: str) -> str:
+    return f'''<details class="code-block">
+    <summary class="code-summary">&nbsp;&nbsp;{summary}</summary>
+        {code_block}
+</details>'''
+
 
 class HighlightRenderer(mistune.HTMLRenderer):
-    def decorated_highlight(self, code: str, lang: str) -> str:
+    def decorated_highlight(self, code: str, lang: str, summary: str) -> str:
         lexer = get_lexer_by_name(lang, stripall=True)
         formatter = html.HtmlFormatter(style="solarized-light")
         pygments_highlight = highlight(code, lexer, formatter)
@@ -48,13 +54,20 @@ class HighlightRenderer(mistune.HTMLRenderer):
         # add <code> element to correct place
         i = len("<span></span>")
         code = code[:i] + "<code>" + code[i:] + "</code>"
-        return f'''<div class="highlight">
-    <pre class="code" data-lang="{lang}">{code}</pre>
-</div>'''
+        code_block = f'''
+    <div class="highlight">
+        <pre class="code" data-lang="{lang}">{code}</pre>
+    </div>'''
+        if summary:
+            return wrap_code_in_details(code_block, summary)
+        return code_block
 
     def block_code(self, code, info=None) -> str:
         if info:
-            return self.decorated_highlight(code, info)
+            parts = info.strip().split(',')
+            lang = parts[0]
+            summary = parts[1] if len(parts) > 1 else None
+            return self.decorated_highlight(code, lang, summary)
         return f"<pre><code>{mistune.escape(code)}</code></pre>"
 
     def block_html(self, html) -> str:
