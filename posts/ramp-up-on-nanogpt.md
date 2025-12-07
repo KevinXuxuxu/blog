@@ -80,7 +80,7 @@ I wrote a [interactive prompt script](https://github.com/KevinXuxuxu/nanoGPT/blo
 
 - Shakespeare dataset, 3.42M parameters, trained for an hours, didn't record final loss
 
-```text
+```text,Inference result for Shakespeare
 prompt: ROMEO:
 ROMEO:
 O, daughter, for I have, I know not the wrong
@@ -141,7 +141,7 @@ The result does look like Shakespeare writing, except that it doesn't make sense
 
 - Open web text dataset, 55.19M parameters, Trained for ~6h, final loss 3.9:
 
-```text
+```text,Inference result for generating recipe
 prompt: Recipe for lasagna:
 Recipe for lasagna:
 

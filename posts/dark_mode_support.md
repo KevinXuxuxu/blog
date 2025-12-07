@@ -35,7 +35,7 @@ Now that I can safely dive into the codebase, here's some naive take from an ama
 
 With some simple search I found the key file: [_variable.scss](https://github.com/picturepan2/spectre/blob/master/src/_variables.scss), which contains all the color definition, along with some other important stuff like fonts and sizes.
 
-```css
+```css,Color definitions for Spectre.css
 ...
 // Core colors
 $primary-color: #5755d9 !default;

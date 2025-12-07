@@ -114,7 +114,7 @@ The Traefik service will send the request from 80, 443 ports to endpoints 8000, 
 #### Basic Setup
 
 Let's say you want to host your personal website on the cluster. What we need is 3 components: the `Deployment` for the website server itself (which will automatically create `ReplicaSet` and `Pod` for the server), the `Service` to expose the deployment, and an `IngresRoute` to connect with Traefik system (fits into the "routers" component we talked about). A basic setup should look like this:
-```yaml
+```yaml,Example web application k8s config with Traefik
 apiVersion: apps/v1
 kind: Deployment
 metadata:

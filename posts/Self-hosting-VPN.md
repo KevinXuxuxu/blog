@@ -67,7 +67,7 @@ As shown in the graph, I'm using the [Cloudflare tunnel](https://developers.clou
 
 The following is the basic k8s config for the V2Ray deployment and service:
 
-```yaml
+```yaml,v2ray deployment and service k8s config
 kind: Deployment
 apiVersion: apps/v1
 metadata:

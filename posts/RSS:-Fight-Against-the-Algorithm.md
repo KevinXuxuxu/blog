@@ -31,7 +31,7 @@ While I'm looking for something away from a public service provider, I settled w
 [^1]: e.g. [Feedly](https://feedly.com/), [Inoreader](https://www.inoreader.com/), [NewsBlur](https://www.newsblur.com/)
 
 FreshRSS is very nice to have an [official Docker image](https://hub.docker.com/r/freshrss/freshrss) (luckily with ARM build as well), so it's fairly easy to construct a k8s Deployment and Service config to deploy it.
-```yaml
+```yaml,FreshRSS deployment and service k8s config
 kind: Deployment
 apiVersion: apps/v1
 metadata:

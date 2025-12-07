@@ -15,7 +15,7 @@ So let's get right into it.
 
 CoreDNS is an [important component](https://docs.k3s.io/networking#coredns) of the k3s network infrastructure, serving as the [cluster DNS](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) of the k8s system. We can check the existing deployment status of the service in the `kube-system` namespace:
 
-```shell
+```shell,Commands to check CoreDNS status in k3s
 $ kubectl get deployment -n kube-system -o wide
 NAME                     READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS               IMAGES                                    SELECTOR
 ...
@@ -75,7 +75,7 @@ From the config we have important pieces of information:
 
 Now let's take a look at the `Corefile` used to configure the DNS behaviors:
 
-```shell
+```shell,Command to check Corfile
 $ kubectl describe configmap coredns -n kube-system
 Name:         coredns
 Namespace:    kube-system
