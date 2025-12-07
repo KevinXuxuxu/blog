@@ -63,11 +63,10 @@ def rss_posts():
         language="en",
     )
     for post in get_all_posts_with_metadata():
-        thumbnail = (
-            f'<a href="https://site.fzxu.me/blog/post/{post.path_title}/"><img src="https://site.fzxu.me{post.thumbnail}" alt="{post.title}" /></a>'
-            if post.thumbnail
-            else ""
-        )
+        thumbnail_link = ""
+        if post.thumbnail:
+            thumbnail_link = post.thumbnail if post.thumbnail.startswith("http") else f"https://site.fzxu.me{post.thumbnail}"
+        thumbnail = f'<a href="https://site.fzxu.me/blog/post/{post.path_title}/"><img src="{thumbnail_link}" alt="{post.title}" /></a>'
         feed.add_item(
             title=post.title,
             link=f"https://site.fzxu.me/blog/post/{post.path_title}/",
