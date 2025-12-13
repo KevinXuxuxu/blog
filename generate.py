@@ -33,3 +33,5 @@ if __name__ == "__main__":
     copyfile("CNAME", "build/CNAME")
     # Copy robots.txt file to the build dir.
     copyfile("robots.txt", "build/robots.txt")
+    # Copy google0379832c2a35e2d0.html file to the build dir.
+    copyfile("google0379832c2a35e2d0.html", "build/google0379832c2a35e2d0.html")
