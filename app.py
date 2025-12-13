@@ -27,7 +27,7 @@ def index():
     html = md_factory(index_md)
     tags = get_top_k_tags(all_posts, 25)
     return render_template(
-        "index.html", rendered_content=html, posts=all_posts, tags=tags
+        "index.html", rendered_content=html, posts=all_posts, tags=tags, commits=get_git_commits(10)
     )
 
 

@@ -3,6 +3,7 @@ import sys
 import mistune
 import time
 
+from datetime import datetime
 from collections import namedtuple, Counter
 from flask.helpers import url_for
 from pygments import highlight
@@ -185,3 +186,18 @@ if __name__ == "__main__":
             print("e.g. python3 utils.py new <title>")
         else:
             gen_new_post(sys.argv[2])
+
+GitCommit = namedtuple("GitCommit", ["hash", "date", "message"])
+
+def get_git_commits(n: int) -> List[GitCommit]:
+    commits = []
+    for line in os.popen("git log --pretty=format:'%h - %cd - %s' -n {}".format(n)):
+        parts = line.strip().split(" - ")
+        commits.append(
+            GitCommit(
+                hash=parts[0],
+                date=datetime.strptime(parts[1], "%a %b %d %H:%M:%S %Y %z").strftime("%Y-%m-%d %H:%M"),
+                message=parts[2],
+            )
+        )
+    return commits
