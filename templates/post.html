@@ -27,14 +27,12 @@
 {% endif %}
 {% endblock %}
 {% block seo_meta %}
-<meta name="description" content="{{ post.title }} - A technical blog post by fzxu covering {{ post.category | lower }} topics.">
-<meta name="keywords" content="{{ post.tags | join(', ') }}, {{ post.category | lower }}, fzxu, technical blog">
+<meta name="keywords" content="{{ post.tags | join(', ') }}, {{ post.category | lower }}">
 <link rel="canonical" href="https://site.fzxu.me/blog/post/{{ post.path_title }}/">
 
 <!-- Open Graph tags -->
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{ post.title }}">
-<meta property="og:description" content="{{ post.title }} - A technical blog post by fzxu covering {{ post.category | lower }} topics.">
 <meta property="og:url" content="https://site.fzxu.me/blog/post/{{ post.path_title }}/">
 <meta property="og:site_name" content="fzxu's Blog">
 {% if post.thumbnail %}
@@ -53,7 +51,6 @@
 <!-- Twitter Card tags -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ post.title }}">
-<meta name="twitter:description" content="{{ post.title }} - A technical blog post by fzxu covering {{ post.category | lower }} topics.">
 {% if post.thumbnail %}
 <meta name="twitter:image" content="https://site.fzxu.me{{ post.thumbnail }}">
 {% else %}

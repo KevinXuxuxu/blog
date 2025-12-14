@@ -8,7 +8,7 @@ from opencoder.app import sub_app
 
 app = Flask(__name__)
 
-app.config["FREEZER_DESTINATION_IGNORE"] = [".git*", "online_tool"]
+app.config["FREEZER_DESTINATION_IGNORE"] = [".git*"]
 app.register_blueprint(sub_app, url_prefix="/opencoder")
 
 
