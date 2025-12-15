@@ -27,7 +27,11 @@ def index():
     html = md_factory(index_md)
     tags = get_top_k_tags(all_posts, 25)
     return render_template(
-        "index.html", rendered_content=html, posts=all_posts, tags=tags, commits=get_git_commits(10)
+        "index.html",
+        rendered_content=html,
+        posts=all_posts,
+        tags=tags,
+        commits=get_git_commits(10),
     )
 
 
@@ -65,10 +69,14 @@ def rss_posts():
     for post in get_all_posts_with_metadata():
         thumbnail_link = ""
         if post.thumbnail:
-            thumbnail_link = post.thumbnail if post.thumbnail.startswith("http") else f"https://site.fzxu.me{post.thumbnail}"
+            thumbnail_link = (
+                post.thumbnail
+                if post.thumbnail.startswith("http")
+                else f"https://site.fzxu.me{post.thumbnail}"
+            )
         thumbnail = f'<a href="https://site.fzxu.me/blog/post/{post.path_title}/"><img src="{thumbnail_link}" alt="{post.title}" /></a>'
         feed.add_item(
-            title=post.title.strip() + (' ' + post.subtitle if post.subtitle else ""),
+            title=post.title.strip() + (" " + post.subtitle if post.subtitle else ""),
             link=f"https://site.fzxu.me/blog/post/{post.path_title}/",
             description=f"{thumbnail}<br>Tags: {', '.join(post.tags)}<br>Category: {post.category}",
             pubdate=datetime.strptime(post.date, "%Y-%m-%d %H:%M:%S"),

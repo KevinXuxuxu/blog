@@ -35,11 +35,12 @@ thumbnail:
 ---
 """
 
+
 def wrap_code_in_details(code_block: str, summary: str) -> str:
-    return f'''<details class="code-block">
+    return f"""<details class="code-block">
     <summary class="code-summary">&nbsp;&nbsp;{summary}</summary>
         {code_block}
-</details>'''
+</details>"""
 
 
 class HighlightRenderer(mistune.HTMLRenderer):
@@ -66,7 +67,7 @@ class HighlightRenderer(mistune.HTMLRenderer):
 
     def block_code(self, code, info=None) -> str:
         if info:
-            parts = info.strip().split(',')
+            parts = info.strip().split(",")
             lang = parts[0]
             summary = parts[1] if len(parts) > 1 else None
             return self.decorated_highlight(code, lang, summary)
@@ -191,6 +192,7 @@ if __name__ == "__main__":
 
 GitCommit = namedtuple("GitCommit", ["hash", "date", "message"])
 
+
 def get_git_commits(n: int) -> List[GitCommit]:
     commits = []
     for line in os.popen("git log --pretty=format:'%h - %cd - %s' -n {}".format(n)):
@@ -198,7 +200,9 @@ def get_git_commits(n: int) -> List[GitCommit]:
         commits.append(
             GitCommit(
                 hash=parts[0],
-                date=datetime.strptime(parts[1], "%a %b %d %H:%M:%S %Y %z").strftime("%Y-%m-%d %H:%M"),
+                date=datetime.strptime(parts[1], "%a %b %d %H:%M:%S %Y %z").strftime(
+                    "%Y-%m-%d %H:%M"
+                ),
                 message=parts[2],
             )
         )
