@@ -1,5 +1,6 @@
 ---
-title: Building Private Cloud: Storage Solution
+title: Building Private Cloud: 
+subtitle: Storage Solution
 date: 2024-02-24 02:13:53
 tags: ["Private Cloud", "k8s", "Storage", "NAS", "NFS"]
 category: tech

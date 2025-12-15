@@ -96,7 +96,11 @@
     <img src="/static/favicon_io/android-chrome-192x192.png" alt="avatar">
 </figure>&nbsp;
 <a href="/">fzxu's Blog</a>
-<h1 class="heading-index">{{ post.title }}</h1>
+<h1 class="heading-index">{{ post.title }}
+  {% if post.subtitle %}
+  <br>{{ post.subtitle }}
+  {% endif %}
+</h1>
 
 <p class="text-gray">
     <small>{{ post.date | default("") }}</small>

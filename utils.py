@@ -15,6 +15,7 @@ ParsedPost = namedtuple(
     "ParsedPost",
     [
         "title",
+        "subtitle",
         "path_title",
         "date",
         "tags",
@@ -158,6 +159,7 @@ def parse_post_metadata(path_title: str, md: str) -> ParsedPost:
         "path_title": path_title,
         "enable_cosmo": False,
         "thumbnail": None,
+        "subtitle": None,
     }
     for line in metadata_str.strip().split("\n"):
         key, value = parse_attribute(line)

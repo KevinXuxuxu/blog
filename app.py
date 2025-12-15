@@ -68,7 +68,7 @@ def rss_posts():
             thumbnail_link = post.thumbnail if post.thumbnail.startswith("http") else f"https://site.fzxu.me{post.thumbnail}"
         thumbnail = f'<a href="https://site.fzxu.me/blog/post/{post.path_title}/"><img src="{thumbnail_link}" alt="{post.title}" /></a>'
         feed.add_item(
-            title=post.title,
+            title=post.title.strip() + (' ' + post.subtitle if post.subtitle else ""),
             link=f"https://site.fzxu.me/blog/post/{post.path_title}/",
             description=f"{thumbnail}<br>Tags: {', '.join(post.tags)}<br>Category: {post.category}",
             pubdate=datetime.strptime(post.date, "%Y-%m-%d %H:%M:%S"),

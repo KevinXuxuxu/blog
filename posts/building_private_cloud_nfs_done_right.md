@@ -1,5 +1,6 @@
 ---
-title: Building Private Cloud: NFS Done Right
+title: Building Private Cloud: 
+subtitle: NFS Done Right
 date: 2025-12-06 15:31:47
 tags: ["Private Cloud", "Storage", "NAS", "NFS", "k8s", "Monitoring"]
 category: tech

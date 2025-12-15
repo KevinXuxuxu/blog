@@ -1,5 +1,6 @@
 ---
-title: Building Private Cloud: Local Container Registry
+title: Building Private Cloud: 
+subtitle: Local Container Registry
 date: 2024-04-14 04:47:45
 tags: ["Private Cloud", "k8s", "Docker", "Container Registry"]
 category: tech
