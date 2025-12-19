@@ -96,6 +96,13 @@
     <img src="/static/favicon_io/android-chrome-192x192.png" alt="avatar">
 </figure>&nbsp;
 <a href="/">fzxu's Blog</a>
+{% if post.next %}
+<a href="/blog/post/{{ post.next }}/" style="float: right;">next ▶</a>
+{% endif %}
+<div style="float: right;"> &nbsp; </div>
+{% if post.prev %}
+<a href="/blog/post/{{ post.prev }}/" style="float: right;">◀ prev</a>
+{% endif %}
 <h1 class="heading-index">{{ post.title }}
   {% if post.subtitle %}
   <br>{{ post.subtitle }}

@@ -9,23 +9,25 @@ from flask.helpers import url_for
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
-from typing import List, Tuple
+from typing import List, Tuple, Optional
+from dataclasses import dataclass
 
-ParsedPost = namedtuple(
-    "ParsedPost",
-    [
-        "title",
-        "subtitle",
-        "path_title",
-        "date",
-        "tags",
-        "category",
-        "content",
-        "enable_cosmo",
-        "thumbnail",
-    ],
-)
-_all_post_metadata_cache = None
+
+@dataclass
+class ParsedPost:
+    title: str
+    subtitle: str
+    path_title: str
+    date: str
+    tags: list
+    category: str
+    content: str
+    enable_cosmo: bool
+    thumbnail: Optional[str]
+    prev: Optional[str]
+    next: Optional[str]
+
+
 _post_metadata_template = """---
 title: {title}
 date: {time}
@@ -112,18 +114,41 @@ def get_local_content(folder: str, path_title: str) -> str:
         return f.read()
 
 
-def get_all_posts_with_metadata() -> List[ParsedPost]:
-    global _all_post_metadata_cache
-    if _all_post_metadata_cache is None:
-        _all_post_metadata_cache = []
+class PostsCache:
+    def __init__(self):
+        self.cache = []
         for path in os.listdir("posts"):
             if not path.endswith(".md"):
                 continue
             with open("posts/" + path, "r") as f:
-                _all_post_metadata_cache.append(
-                    parse_post_metadata(path[:-3], f.read())
-                )
-    return sorted(_all_post_metadata_cache, key=lambda p: p.date, reverse=True)
+                self.cache.append(parse_post_metadata(path[:-3], f.read()))
+        self.cache.sort(key=lambda p: p.date, reverse=True)
+        for i in range(len(self.cache)):
+            if i > 0:
+                self.cache[i].next = self.cache[i - 1].path_title
+            if i < len(self.cache) - 1:
+                self.cache[i].prev = self.cache[i + 1].path_title
+        self.path_to_post = {p.path_title: p for p in self.cache}
+
+    def __iter__(self) -> ParsedPost:
+        for p in self.cache:
+            yield p
+
+    def __getitem__(self, path_title: str) -> ParsedPost:
+        return self.path_to_post[path_title]
+
+    def keys(self) -> List[str]:
+        return [p.path_title for p in self.cache]
+
+
+_all_post_metadata_cache = None
+
+
+def get_all_posts_with_metadata() -> PostsCache:
+    global _all_post_metadata_cache
+    if _all_post_metadata_cache is None:
+        _all_post_metadata_cache = PostsCache()
+    return _all_post_metadata_cache
 
 
 def get_all_tags(posts: List[ParsedPost]) -> List[str]:
@@ -161,6 +186,8 @@ def parse_post_metadata(path_title: str, md: str) -> ParsedPost:
         "enable_cosmo": False,
         "thumbnail": None,
         "subtitle": None,
+        "prev": None,
+        "next": None,
     }
     for line in metadata_str.strip().split("\n"):
         key, value = parse_attribute(line)

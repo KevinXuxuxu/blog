@@ -51,8 +51,10 @@ def tag(tag):
 
 @app.route("/blog/post/<path_title>/")
 def post(path_title):
-    md = get_local_content("posts", path_title)
-    parsed_post = parse_post_metadata(path_title, md)
+    cache = get_all_posts_with_metadata()
+    if path_title not in cache.keys():
+        return "Post not found", 404
+    parsed_post = cache[path_title]
     md_factory = get_md_factory()
     html = md_factory(parsed_post.content)
     return render_template("post.html", post=parsed_post, rendered_content=html)

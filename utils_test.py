@@ -127,7 +127,8 @@ content"""
         patch("os.listdir", return_value=mock_posts_dir),
         patch("builtins.open", mock_open(read_data=mock_data)),
     ):
-        posts = utils.get_all_posts_with_metadata()
+        posts_cache = utils.get_all_posts_with_metadata()
+        posts = list(posts_cache)  # Convert to list
         assert len(posts) == 2  # Only .md files
         assert all(isinstance(p, ParsedPost) for p in posts)
 
@@ -160,8 +161,32 @@ content"""
 # Test tag handling
 def test_get_all_tags():
     posts = [
-        ParsedPost("Post1", "", "", ["tag1", "tag2"], "", "", False),
-        ParsedPost("Post2", "", "", ["tag2", "tag3"], "", "", False),
+        ParsedPost(
+            "Post1",
+            "",
+            "Post1",
+            "2024-01-01",
+            ["tag1", "tag2"],
+            "default",
+            "",
+            False,
+            None,
+            None,
+            None,
+        ),
+        ParsedPost(
+            "Post2",
+            "",
+            "Post2",
+            "2024-01-01",
+            ["tag2", "tag3"],
+            "default",
+            "",
+            False,
+            None,
+            None,
+            None,
+        ),
     ]
     tags = utils.get_all_tags(posts)
     assert sorted(tags) == ["tag1", "tag2", "tag3"]
@@ -169,9 +194,45 @@ def test_get_all_tags():
 
 def test_get_top_k_tags():
     posts = [
-        ParsedPost("Post1", "", "", ["tag1", "tag2"], "", "", False),
-        ParsedPost("Post2", "", "", ["tag2", "tag3"], "", "", False),
-        ParsedPost("Post3", "", "", ["tag2"], "", "", False),
+        ParsedPost(
+            "Post1",
+            "",
+            "Post1",
+            "2024-01-01",
+            ["tag1", "tag2"],
+            "default",
+            "",
+            False,
+            None,
+            None,
+            None,
+        ),
+        ParsedPost(
+            "Post2",
+            "",
+            "Post2",
+            "2024-01-01",
+            ["tag2", "tag3"],
+            "default",
+            "",
+            False,
+            None,
+            None,
+            None,
+        ),
+        ParsedPost(
+            "Post3",
+            "",
+            "Post3",
+            "2024-01-01",
+            ["tag2"],
+            "default",
+            "",
+            False,
+            None,
+            None,
+            None,
+        ),
     ]
     tags = utils.get_top_k_tags(posts, 2)
     # Only check the most frequent tag since order of equal-frequency tags may vary
