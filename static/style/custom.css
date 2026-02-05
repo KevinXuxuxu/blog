@@ -1,27 +1,31 @@
 svg.nav-icon {
-    vertical-align:middle;
-    margin-bottom:4px;
+    vertical-align: middle;
+    margin-bottom: 4px;
     margin-right: 3px;
     color: #5755d9;
 }
+
 svg.nav-icon:hover {
-    vertical-align:middle;
-    margin-bottom:4px;
+    vertical-align: middle;
+    margin-bottom: 4px;
     margin-right: 3px;
     color: #807fe2;
 }
+
 [data-theme="dark"] svg.nav-icon {
-    vertical-align:middle;
-    margin-bottom:4px;
+    vertical-align: middle;
+    margin-bottom: 4px;
     margin-right: 3px;
     color: #807fe2;
 }
+
 [data-theme="dark"] svg.nav-icon:hover {
-    vertical-align:middle;
-    margin-bottom:4px;
+    vertical-align: middle;
+    margin-bottom: 4px;
     margin-right: 3px;
     color: #babaf8;
 }
+
 svg path {
     fill: currentColor;
 }
@@ -32,7 +36,8 @@ svg path {
 }
 
 [data-theme="dark"] pre code::-webkit-scrollbar-track {
-    background: #2d2d2d; /* dark mode background */
+    background: #2d2d2d;
+    /* dark mode background */
 }
 
 [data-theme="dark"] pre code::-webkit-scrollbar-thumb {
@@ -46,9 +51,15 @@ svg path {
 
 /* For Firefox */
 [data-theme="dark"] pre code {
-    scrollbar-color: #555 #2d2d2d; /* thumb track */
+    scrollbar-color: #555 #2d2d2d;
+    /* thumb track */
 }
 
 div.commit-message {
     margin-left: 1rem;
+}
+
+a.unstyled-link {
+    color: inherit;
+    text-decoration: none;
 }

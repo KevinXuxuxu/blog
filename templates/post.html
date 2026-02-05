@@ -103,11 +103,13 @@
 {% if post.prev %}
 <a href="/blog/post/{{ post.prev }}/" style="float: right;">◀ prev</a>
 {% endif %}
-<h1 class="heading-index">{{ post.title }}
-  {% if post.subtitle %}
-  <br>{{ post.subtitle }}
-  {% endif %}
-</h1>
+<a class="unstyled-link" href="https://site.fzxu.me/blog/post/{{ post.path_title }}">
+    <h1 class="heading-index">{{ post.title }}
+        {% if post.subtitle %}
+        <br>{{ post.subtitle }}
+        {% endif %}
+    </h1>
+</a>
 
 <p class="text-gray">
     <small>{{ post.date | default("") }}</small>
