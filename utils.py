@@ -47,7 +47,7 @@ def wrap_code_in_details(code_block: str, summary: str) -> str:
 
 class HighlightRenderer(mistune.HTMLRenderer):
     def decorated_highlight(self, code: str, lang: str, summary: str) -> str:
-        lexer = get_lexer_by_name(lang, stripall=True)
+        lexer = get_lexer_by_name("text" if lang == "ascii" else lang, stripall=True)
         formatter = html.HtmlFormatter(style="solarized-light")
         pygments_highlight = highlight(code, lexer, formatter)
         # get everything between <pre>
@@ -58,7 +58,7 @@ class HighlightRenderer(mistune.HTMLRenderer):
         code = pygments_highlight[i:j]
         # add <code> element to correct place
         i = len("<span></span>")
-        code = code[:i] + "<code>" + code[i:] + "</code>"
+        code = f"{code[:i]}<code{' style="line-height: 1;"' if lang == 'ascii' else ''}>{code[i:]}</code>"
         code_block = f'''
     <div class="highlight">
         <pre class="code" data-lang="{lang}">{code}</pre>
