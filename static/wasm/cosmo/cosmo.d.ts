@@ -10,11 +10,13 @@ export class PlayerWASM {
    * @param {number} h
    * @param {boolean} enable_aabb
    * @param {boolean} disable_shade
+   * @param {boolean} raster
+   * @param {boolean} sharpen
    * @param {(string)[]} stl_data_name
    * @param {(Uint8Array)[]} stl_data
    * @returns {PlayerWASM}
    */
-  static new(scene: (string)[], fr: number, w: number, h: number, enable_aabb: boolean, disable_shade: boolean, stl_data_name: (string)[], stl_data: (Uint8Array)[]): PlayerWASM;
+  static new(scene: (string)[], fr: number, w: number, h: number, enable_aabb: boolean, disable_shade: boolean, raster: boolean, sharpen: boolean, stl_data_name: (string)[], stl_data: (Uint8Array)[]): PlayerWASM;
   /**
    * @returns {(string)[]}
    */
@@ -27,8 +29,8 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
   readonly __wbg_playerwasm_free: (a: number, b: number) => void;
-  readonly playerwasm_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number) => number;
   readonly playerwasm_get_a: (a: number) => Array;
+  readonly playerwasm_new: (a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number) => number;
   readonly playerwasm_update: (a: number) => void;
   readonly main: () => void;
   readonly __wbindgen_malloc: (a: number, b: number) => number;

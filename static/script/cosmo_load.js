@@ -50,10 +50,12 @@ async function prepareCosmo(displayEle) {
     const fr = displayEle.getAttribute('framerate');
     const enableAABB = displayEle.getAttribute('enable-aabb') === 'true';
     const disableShade = displayEle.getAttribute('disable-shade') === 'true';
+    const raster = displayEle.hasAttribute('raster') ? displayEle.getAttribute('raster') === 'true' : false;
+    const sharpen = displayEle.hasAttribute('sharpen') ? displayEle.getAttribute('sharpen') === 'true' : false;
 
     const scene = await readScene(sceneName);
     const STLData = await readSTLs(STLNames);
-    const player = PlayerWASM.new(scene, parseInt(fr), parseInt(w), parseInt(h), enableAABB, disableShade, STLNames, STLData);
+    const player = PlayerWASM.new(scene, parseInt(fr), parseInt(w), parseInt(h), enableAABB, disableShade, raster, sharpen, STLNames, STLData);
     startCosmo(displayEle, player);
     displayEle.addEventListener('click', () => {
         if (displayEle.hasAttribute('intId')) {

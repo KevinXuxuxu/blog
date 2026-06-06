@@ -6,8 +6,8 @@ category: tech
 enable_cosmo: true
 thumbnail: /static/image/cosmo_david.gif
 ---
-![cosmo_david](/static/image/cosmo_david.gif "David Head Rendered in 24FPS;;50")
-<!-- <pre><code class="cosmo-display" scene="david" stl-names="david_oriented" dimension="120,60" framerate="24" enable-aabb=true disable-shade=true>loading failed, try refresh UwU</code></pre> -->
+<!-- ![cosmo_david](/static/image/cosmo_david.gif "David Head Rendered in 24FPS;;50") -->
+<pre><code class="cosmo-display" scene="david" stl-names="david_oriented" dimension="120,60" framerate="60" enable-aabb=true disable-shade=true raster=true>loading failed, try refresh UwU</code></pre>
 
 This is a continuation of [the previous post](/blog/post/cosmo:-3D-Graphics-Engine-in-Terminal/), where we talked about my side project [cosmo](https://github.com/KevinXuxuxu/cosmo) and partly about details to implement a basic 3D graphics engine in terminal. In this post we're going to cover the rest parts of implementing a basic PoC (*Spinning Cube™*).
 

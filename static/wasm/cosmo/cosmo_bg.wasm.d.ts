@@ -2,8 +2,8 @@
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
 export function __wbg_playerwasm_free(a: number, b: number): void;
-export function playerwasm_new(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number): number;
 export function playerwasm_get_a(a: number): Array;
+export function playerwasm_new(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number, i: number, j: number, k: number, l: number, m: number): number;
 export function playerwasm_update(a: number): void;
 export function main(): void;
 export function __wbindgen_malloc(a: number, b: number): number;
